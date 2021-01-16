@@ -1,26 +1,35 @@
 #include "lsystem.hpp"
 
+#include <algorithm>
+#include <iostream>
 #include <opencv4/opencv2/core.hpp>
 #include <opencv4/opencv2/highgui.hpp>
 #include <opencv4/opencv2/imgproc.hpp>
-#include <iostream>
 
-LSystem::LSystem() {
-    this->variables = {"A", "B"};
-    this->axiom = "A";
-    this->rules.insert({"A", "AB"});
-    this->rules.insert({"B", "A"});
+LSystem::LSystem(
+    std::vector<std::string> variables,
+    std::vector<std::string> constants,
+    std::string axiom,
+    std::map<std::string, std::string> rules) {
+    this->variables = variables;
+    this->constants = constants;
+    this->axiom = axiom;
+    this->rules = rules;
 }
 
 void LSystem::produce() {
     std::string output = this->axiom;
     std::cout << "n = " << 0 << " : " << output << std::endl;
-    
+
     for (int n = 1; n < 8; n++) {
         std::string tmp_output = "";
-        for (auto variable_char : output) {
-            std::string variable_str{variable_char};
-            tmp_output += this->rules.at(variable_str);
+        for (auto cursor_char : output) {
+            std::string cursor_str{cursor_char};
+            if (std::find(this->constants.begin(), this->constants.end(), cursor_str) != this->constants.end()) {
+                tmp_output += cursor_str;
+            } else {
+                tmp_output += this->rules.at(cursor_str);
+            }
         }
 
         std::cout << "n = " << n << " : " << tmp_output << std::endl;
