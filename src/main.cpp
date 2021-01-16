@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
     rules.insert({"1", "11"});
     rules.insert({"0", "1[0]0"});
 
-    LSystem lsystem = LSystem(variables, constants, axiom, rules, 3);
+    LSystem lsystem = LSystem(variables, constants, axiom, rules, 7);
     lsystem.draw();
 
 

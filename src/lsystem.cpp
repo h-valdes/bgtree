@@ -45,8 +45,8 @@ std::string LSystem::produce() {
 
 void LSystem::draw() {
     auto production = this->produce();
-    int width = 500;
-    int height = 500;
+    int width = 800;
+    int height = 800;
     cv::Mat img(width, height, CV_8UC3, cv::Scalar(255, 255, 255));
 
     // Line properties
@@ -55,39 +55,38 @@ void LSystem::draw() {
 
     cv::Point2d start_point(width/2, height);
     cv::Point2d direction(0, 1);
-    double length{50};
+    double length{10};
     std::vector<cv::Point2d> positions;
     std::vector<cv::Point2d> directions;
 
     // Specific for the example 2 of Wikipedia
-    positions.push_back(start_point);
-    directions.push_back(direction);
-    cv::Point2d last_point = positions.back();
+    cv::Point2d last_point = start_point;
+    cv::Point2d last_direction = direction;
 
+    cv::Point2d new_point;
     for (char cursor : production) {
-        cv::Point2d new_point;
         switch (cursor) {
             case '0':
-                new_point.x = positions.back().x + (directions.back().x * length);
-                new_point.y = positions.back().y - (directions.back().y * length);
+                new_point.x = last_point.x + (last_direction.x * length);
+                new_point.y = last_point.y - (last_direction.y * length);
 
                 cv::line(img, last_point, new_point, colorLine, thicknessLine);
                 break;
             case '1':
-                new_point.x = positions.back().x + (directions.back().x * length);
-                new_point.y = positions.back().y - (directions.back().y * length);
+                new_point.x = last_point.x + (last_direction.x * length);
+                new_point.y = last_point.y - (last_direction.y * length);
 
                 cv::line(img, last_point, new_point, colorLine, thicknessLine);
                 last_point = new_point;
-                length /= 1.3;
                 break;
             case '[':
-                direction = get_rotated_direction(directions.back(), M_PI/4);
                 positions.push_back(last_point);
-                directions.push_back(direction);
+                directions.push_back(last_direction);
+                last_direction = get_rotated_direction(last_direction, M_PI/4);
                 break;
             case ']':
-                direction = get_rotated_direction(directions.back(), -M_PI/4);
+                last_direction = get_rotated_direction(directions.back(), -1 * M_PI/4);
+                last_point = positions.back();
                 positions.pop_back();
                 directions.pop_back();
                 break;
