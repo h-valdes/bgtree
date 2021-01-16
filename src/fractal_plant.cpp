@@ -1,23 +1,23 @@
-#include "fractal_binary_tree.hpp"
-#include "utils.hpp"
+#include "fractal_plant.hpp"
 
-#include <algorithm>
 #include <iostream>
-#include <cmath>
 #include <opencv4/opencv2/core.hpp>
 #include <opencv4/opencv2/highgui.hpp>
 #include <opencv4/opencv2/imgproc.hpp>
 
-FractalBinaryTree::FractalBinaryTree() {
-    this->variables = {"0", "1"};
-    this->constants = {"[", "]"};
-    this->axiom = "0";
-    this->rules.insert({"1", "11"});
-    this->rules.insert({"0", "1[0]0"});
-    this->recursions = 5;
+#include "utils.hpp"
+
+FractalPlant::FractalPlant() {
+    this->variables = {"X", "F"};
+    this->constants = {"+", "-", "[", "]"};
+    this->axiom = "X";
+    this->rules.insert({"X", "F+[[X]-X]-F[-FX]+X"});
+    this->rules.insert({"F", "FF"});
+    this->recursions = 4;
+    this->angle = M_PI / 8;
 }
 
-void FractalBinaryTree::draw() {
+void FractalPlant::draw() {
     auto production = this->produce();
     int width = 800;
     int height = 800;
@@ -29,9 +29,9 @@ void FractalBinaryTree::draw() {
 
     int thicknessLine = 2;
 
-    cv::Point2d start_point(width/2, height);
+    cv::Point2d start_point(width / 2, height);
     cv::Point2d direction(0, 1);
-    double length{5};
+    double length{20};
     std::vector<cv::Point2d> positions;
     std::vector<cv::Point2d> directions;
 
@@ -42,13 +42,21 @@ void FractalBinaryTree::draw() {
     cv::Point2d new_point;
     for (char cursor : production) {
         switch (cursor) {
-            case '0':
+            case 'X':
+                break;
+            case '-':
                 new_point.x = last_point.x + (last_direction.x * length);
                 new_point.y = last_point.y - (last_direction.y * length);
 
                 cv::line(img, last_point, new_point, trunk_line, thicknessLine);
                 break;
-            case '1':
+            case '+':
+                new_point.x = last_point.x + (last_direction.x * length);
+                new_point.y = last_point.y - (last_direction.y * length);
+
+                cv::line(img, last_point, new_point, trunk_line, thicknessLine);
+                break;
+            case 'F':
                 new_point.x = last_point.x + (last_direction.x * length);
                 new_point.y = last_point.y - (last_direction.y * length);
 
@@ -58,10 +66,10 @@ void FractalBinaryTree::draw() {
             case '[':
                 positions.push_back(last_point);
                 directions.push_back(last_direction);
-                last_direction = utils::get_rotated_direction(last_direction, M_PI/4);
+                last_direction = utils::get_rotated_direction(last_direction, angle);
                 break;
             case ']':
-                last_direction = utils::get_rotated_direction(directions.back(), -1 * M_PI/4);
+                last_direction = utils::get_rotated_direction(directions.back(), -1 * angle);
                 last_point = positions.back();
                 positions.pop_back();
                 directions.pop_back();
@@ -70,6 +78,6 @@ void FractalBinaryTree::draw() {
     }
 
     // Display the image until click
-    cv::imshow("Fractal Binary Tree", img);
+    cv::imshow("Fractal Plant", img);
     cv::waitKey(0);
 }

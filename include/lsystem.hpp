@@ -11,7 +11,7 @@ class LSystem {
     std::string axiom;
     std::map<std::string, std::string> rules;
     int recursions;
-    virtual std::string produce() = 0;
+    std::string produce();
    public:
     virtual void draw() = 0;
 };
