@@ -80,10 +80,10 @@ void FractalBinaryTree::draw() {
             case '[':
                 positions.push_back(last_point);
                 directions.push_back(last_direction);
-                last_direction = get_rotated_direction(last_direction, M_PI/4);
+                last_direction = utils::get_rotated_direction(last_direction, M_PI/4);
                 break;
             case ']':
-                last_direction = get_rotated_direction(directions.back(), -1 * M_PI/4);
+                last_direction = utils::get_rotated_direction(directions.back(), -1 * M_PI/4);
                 last_point = positions.back();
                 positions.pop_back();
                 directions.pop_back();
