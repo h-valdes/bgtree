@@ -10,13 +10,14 @@ class LSystem {
     std::vector<std::string> constants;
     std::string axiom;
     std::map<std::string, std::string> rules;
-    void produce();
-
+    int recursions;
+    std::string produce();
    public:
     LSystem(
         std::vector<std::string> variables,
         std::vector<std::string> constants,
         std::string axiom,
-        std::map<std::string, std::string> rules);
+        std::map<std::string, std::string> rules,
+        int recursions);
     void draw();
 };
