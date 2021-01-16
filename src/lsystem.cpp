@@ -51,33 +51,48 @@ void LSystem::draw() {
 
     // Line properties
     cv::Scalar colorLine(0, 255, 0);
-    int thicknessLine = 1;
+    int thicknessLine = 2;
 
     cv::Point2d start_point(width/2, height);
     cv::Point2d direction(0, 1);
-    double length{10};
+    double length{50};
     std::vector<cv::Point2d> positions;
+    std::vector<cv::Point2d> directions;
 
     // Specific for the example 2 of Wikipedia
-    cv::Point2d tmp_point = start_point;
+    positions.push_back(start_point);
+    directions.push_back(direction);
+    cv::Point2d last_point = positions.back();
+
     for (char cursor : production) {
+        cv::Point2d new_point;
         switch (cursor) {
             case '0':
+                new_point.x = positions.back().x + (directions.back().x * length);
+                new_point.y = positions.back().y - (directions.back().y * length);
+
+                cv::line(img, last_point, new_point, colorLine, thicknessLine);
                 break;
             case '1':
+                new_point.x = positions.back().x + (directions.back().x * length);
+                new_point.y = positions.back().y - (directions.back().y * length);
+
+                cv::line(img, last_point, new_point, colorLine, thicknessLine);
+                last_point = new_point;
+                length /= 1.3;
                 break;
             case '[':
-                positions.push_back(tmp_point);
+                direction = get_rotated_direction(directions.back(), M_PI/4);
+                positions.push_back(last_point);
+                directions.push_back(direction);
                 break;
             case ']':
+                direction = get_rotated_direction(directions.back(), -M_PI/4);
                 positions.pop_back();
+                directions.pop_back();
                 break;
         }
     }
-
-    // Draw line from p1 to p2 on Mat img
-    cv::Point p1(100, 100);
-    cv::line(img, p1, start_point, colorLine, thicknessLine);
 
     // Display the image until click
     cv::imshow("L-System", img);
