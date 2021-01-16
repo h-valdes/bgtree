@@ -13,7 +13,7 @@ FractalPlant::FractalPlant() {
     this->axiom = "X";
     this->rules.insert({"X", "F+[[X]-X]-F[-FX]+X"});
     this->rules.insert({"F", "FF"});
-    this->recursions = 4;
+    this->recursions = 6;
     this->angle = M_PI / 8;
 }
 
@@ -27,11 +27,11 @@ void FractalPlant::draw() {
     cv::Scalar trunk_line(30, 210, 105);
     cv::Scalar leaf_line(11, 58, 95);
 
-    int thicknessLine = 2;
+    int thicknessLine = 1;
 
     cv::Point2d start_point(width / 2, height);
     cv::Point2d direction(0, 1);
-    double length{20};
+    double length{4.5};
     std::vector<cv::Point2d> positions;
     std::vector<cv::Point2d> directions;
 
@@ -45,16 +45,10 @@ void FractalPlant::draw() {
             case 'X':
                 break;
             case '-':
-                new_point.x = last_point.x + (last_direction.x * length);
-                new_point.y = last_point.y - (last_direction.y * length);
-
-                cv::line(img, last_point, new_point, trunk_line, thicknessLine);
+                last_direction = utils::get_rotated_direction(last_direction, -1 * angle);
                 break;
             case '+':
-                new_point.x = last_point.x + (last_direction.x * length);
-                new_point.y = last_point.y - (last_direction.y * length);
-
-                cv::line(img, last_point, new_point, trunk_line, thicknessLine);
+                last_direction = utils::get_rotated_direction(last_direction, angle);
                 break;
             case 'F':
                 new_point.x = last_point.x + (last_direction.x * length);
@@ -66,10 +60,9 @@ void FractalPlant::draw() {
             case '[':
                 positions.push_back(last_point);
                 directions.push_back(last_direction);
-                last_direction = utils::get_rotated_direction(last_direction, angle);
                 break;
             case ']':
-                last_direction = utils::get_rotated_direction(directions.back(), -1 * angle);
+                last_direction = directions.back();
                 last_point = positions.back();
                 positions.pop_back();
                 directions.pop_back();
