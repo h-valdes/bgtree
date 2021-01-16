@@ -5,19 +5,13 @@
 #include <vector>
 
 class LSystem {
-   private:
+   protected:
     std::vector<std::string> variables;
     std::vector<std::string> constants;
     std::string axiom;
     std::map<std::string, std::string> rules;
     int recursions;
-    std::string produce();
+    virtual std::string produce() = 0;
    public:
-    LSystem(
-        std::vector<std::string> variables,
-        std::vector<std::string> constants,
-        std::string axiom,
-        std::map<std::string, std::string> rules,
-        int recursions);
-    void draw();
+    virtual void draw() = 0;
 };

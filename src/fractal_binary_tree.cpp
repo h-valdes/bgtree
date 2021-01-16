@@ -1,4 +1,4 @@
-#include "lsystem.hpp"
+#include "fractal_binary_tree.hpp"
 #include "utils.hpp"
 
 #include <algorithm>
@@ -8,24 +8,20 @@
 #include <opencv4/opencv2/highgui.hpp>
 #include <opencv4/opencv2/imgproc.hpp>
 
-LSystem::LSystem(
-    std::vector<std::string> variables,
-    std::vector<std::string> constants,
-    std::string axiom,
-    std::map<std::string, std::string> rules,
-    int recursions) {
-    this->variables = variables;
-    this->constants = constants;
-    this->axiom = axiom;
-    this->rules = rules;
-    this->recursions = recursions;
+FractalBinaryTree::FractalBinaryTree() {
+    this->variables = {"0", "1"};
+    this->constants = {"[", "]"};
+    this->axiom = "0";
+    this->rules.insert({"1", "11"});
+    this->rules.insert({"0", "1[0]0"});
+    this->recursions = 5;
 }
 
-std::string LSystem::produce() {
+std::string FractalBinaryTree::produce() {
     std::string output = this->axiom;
     std::cout << "n = " << 0 << " : " << output << std::endl;
 
-    for (int n = 1; n < this->recursions; n++) {
+    for (int n = 1; n < this->recursions + 1; n++) {
         std::string tmp_output = "";
         for (auto cursor_char : output) {
             std::string cursor_str{cursor_char};
@@ -43,19 +39,21 @@ std::string LSystem::produce() {
     return output;
 }
 
-void LSystem::draw() {
+void FractalBinaryTree::draw() {
     auto production = this->produce();
     int width = 800;
     int height = 800;
     cv::Mat img(width, height, CV_8UC3, cv::Scalar(255, 255, 255));
 
     // Line properties
-    cv::Scalar colorLine(0, 255, 0);
+    cv::Scalar trunk_line(30, 210, 105);
+    cv::Scalar leaf_line(11, 58, 95);
+
     int thicknessLine = 2;
 
     cv::Point2d start_point(width/2, height);
     cv::Point2d direction(0, 1);
-    double length{10};
+    double length{5};
     std::vector<cv::Point2d> positions;
     std::vector<cv::Point2d> directions;
 
@@ -70,13 +68,13 @@ void LSystem::draw() {
                 new_point.x = last_point.x + (last_direction.x * length);
                 new_point.y = last_point.y - (last_direction.y * length);
 
-                cv::line(img, last_point, new_point, colorLine, thicknessLine);
+                cv::line(img, last_point, new_point, trunk_line, thicknessLine);
                 break;
             case '1':
                 new_point.x = last_point.x + (last_direction.x * length);
                 new_point.y = last_point.y - (last_direction.y * length);
 
-                cv::line(img, last_point, new_point, colorLine, thicknessLine);
+                cv::line(img, last_point, new_point, leaf_line, thicknessLine);
                 last_point = new_point;
                 break;
             case '[':

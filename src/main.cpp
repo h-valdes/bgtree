@@ -1,18 +1,11 @@
 #include <iostream>
 
-#include "lsystem.hpp"
+#include "fractal_binary_tree.hpp"
 
 int main(int argc, char** argv) {
-    std::vector<std::string> variables = {"0", "1"};
-    std::vector<std::string> constants = {"[", "]"};
-    std::string axiom = "0";
-    std::map<std::string, std::string> rules;
-    rules.insert({"1", "11"});
-    rules.insert({"0", "1[0]0"});
 
-    LSystem lsystem = LSystem(variables, constants, axiom, rules, 7);
-    lsystem.draw();
-
+    FractalBinaryTree fbtree = FractalBinaryTree();
+    fbtree.draw();
 
     return EXIT_SUCCESS;
 }
