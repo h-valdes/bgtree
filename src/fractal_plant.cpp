@@ -15,19 +15,14 @@ FractalPlant::FractalPlant() {
     this->rules.insert({"F", "FF"});
     this->recursions = 6;
     this->angle = M_PI / 8;
+    this->name = "Fractal Plant";
 }
 
-void FractalPlant::draw() {
+std::vector<std::pair<cv::Point2d, cv::Point2d>> FractalPlant::get_lines() {
+    std::vector<std::pair<cv::Point2d, cv::Point2d>> lines;
     auto production = this->produce();
     int width = 800;
     int height = 800;
-    cv::Mat img(width, height, CV_8UC3, cv::Scalar(255, 255, 255));
-
-    // Line properties
-    cv::Scalar trunk_line(30, 210, 105);
-    cv::Scalar leaf_line(11, 58, 95);
-
-    int thicknessLine = 1;
 
     cv::Point2d start_point(width / 2, height);
     cv::Point2d direction(0, 1);
@@ -53,8 +48,7 @@ void FractalPlant::draw() {
             case 'F':
                 new_point.x = last_point.x + (last_direction.x * length);
                 new_point.y = last_point.y - (last_direction.y * length);
-
-                cv::line(img, last_point, new_point, leaf_line, thicknessLine);
+                lines.push_back({last_point, new_point});
                 last_point = new_point;
                 break;
             case '[':
@@ -70,7 +64,5 @@ void FractalPlant::draw() {
         }
     }
 
-    // Display the image until click
-    cv::imshow("Fractal Plant", img);
-    cv::waitKey(0);
+    return lines;
 }

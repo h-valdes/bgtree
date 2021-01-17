@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
-project( bgtree )
+project( bgmaker )
 
 find_package(OpenCV REQUIRED)
 
@@ -27,10 +27,10 @@ file(GLOB all_SRCS
 )
 
 set(PROJECT_SOURCES main.cpp)
-add_executable(bgtree ${all_SRCS})
-target_link_libraries(bgtree ${OpenCV_LIBS})
+add_executable(bgmaker ${all_SRCS})
+target_link_libraries(bgmaker ${OpenCV_LIBS})
 
-set_target_properties(bgtree PROPERTIES
+set_target_properties(bgmaker PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS ON

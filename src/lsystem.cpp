@@ -24,3 +24,23 @@ std::string LSystem::produce() {
 
     return output;
 }
+
+void LSystem::draw() {
+    auto lines = this->get_lines();
+    int width = 800;
+    int height = 800;
+    cv::Mat img(width, height, CV_8UC3, cv::Scalar(255, 255, 255));
+
+    // Line properties
+    cv::Scalar leaf_line(11, 58, 95);
+
+    int thicknessLine = 1;
+
+    for (auto line : lines) {
+        cv::line(img, line.first, line.second, leaf_line, thicknessLine);
+    }    
+
+    // Display the image until click
+    cv::imshow(this->name, img);
+    cv::waitKey(0);
+}
