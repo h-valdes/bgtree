@@ -1,7 +1,11 @@
 #include "lsystem.hpp"
 
-#include <iostream>
+#include <Magick++.h>
+
 #include <algorithm>
+#include <iostream>
+#include <vector>
+#include <list>
 
 std::string LSystem::produce() {
     std::string output = this->axiom;
@@ -29,18 +33,22 @@ void LSystem::draw() {
     auto lines = this->get_lines();
     int width = 800;
     int height = 800;
-    cv::Mat img(width, height, CV_8UC3, cv::Scalar(255, 255, 255));
 
-    // Line properties
-    cv::Scalar leaf_line(11, 58, 95);
+    Magick::Image image(Magick::Geometry(width, height), Magick::Color("white"));
+    std::vector<Magick::Drawable> draw_vector;
 
-    int thicknessLine = 1;
+    image.strokeColor("red");  // Outline color
+    image.strokeWidth(1.3);
 
     for (auto line : lines) {
-        cv::line(img, line.first, line.second, leaf_line, thicknessLine);
-    }    
+        draw_vector.push_back(Magick::DrawableLine(
+            line.first.x, line.first.y, 
+            line.second.x, line.second.y));
+    }
 
-    // Display the image until click
-    cv::imshow(this->name, img);
-    cv::waitKey(0);
+    for (auto drawable : draw_vector) {
+        image.draw(drawable);
+    }
+
+    image.display();
 }

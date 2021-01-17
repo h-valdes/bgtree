@@ -1,11 +1,9 @@
 #pragma once
 
 #include <map>
-#include <opencv4/opencv2/core.hpp>
-#include <opencv4/opencv2/highgui.hpp>
-#include <opencv4/opencv2/imgproc.hpp>
 #include <string>
 #include <vector>
+#include <point.hpp>
 
 class LSystem {
    protected:
@@ -16,7 +14,7 @@ class LSystem {
     int recursions;
     std::string name;
     std::string produce();
-    virtual std::vector<std::pair<cv::Point2d, cv::Point2d>> get_lines() = 0;
+    virtual std::vector<std::pair<Point, Point>> get_lines() = 0;
 
    public:
     void draw();

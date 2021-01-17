@@ -1,10 +1,6 @@
 #include "fractal_plant.hpp"
 
 #include <iostream>
-#include <opencv4/opencv2/core.hpp>
-#include <opencv4/opencv2/highgui.hpp>
-#include <opencv4/opencv2/imgproc.hpp>
-
 #include "utils.hpp"
 
 FractalPlant::FractalPlant() {
@@ -18,23 +14,23 @@ FractalPlant::FractalPlant() {
     this->name = "Fractal Plant";
 }
 
-std::vector<std::pair<cv::Point2d, cv::Point2d>> FractalPlant::get_lines() {
-    std::vector<std::pair<cv::Point2d, cv::Point2d>> lines;
+std::vector<std::pair<Point, Point>> FractalPlant::get_lines() {
+    std::vector<std::pair<Point, Point>> lines;
     auto production = this->produce();
     int width = 800;
     int height = 800;
 
-    cv::Point2d start_point(width / 2, height);
-    cv::Point2d direction(0, 1);
+    Point start_point(width / 2, height);
+    Point direction(0, 1);
     double length{4.5};
-    std::vector<cv::Point2d> positions;
-    std::vector<cv::Point2d> directions;
+    std::vector<Point> positions;
+    std::vector<Point> directions;
 
     // Specific for the example 2 of Wikipedia
-    cv::Point2d last_point = start_point;
-    cv::Point2d last_direction = direction;
+    Point last_point = start_point;
+    Point last_direction = direction;
 
-    cv::Point2d new_point;
+    Point new_point;
     for (char cursor : production) {
         switch (cursor) {
             case 'X':

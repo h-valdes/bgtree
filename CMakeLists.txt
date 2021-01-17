@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.11)
 project( bgmaker )
 
-find_package(OpenCV REQUIRED)
+find_package(ImageMagick COMPONENTS Magick++)
 
 if(NOT CMAKE_BUILD_TYPE)
 set(CMAKE_BUILD_TYPE Release)
@@ -14,7 +14,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 include_directories( 
-    ${OpenCV_INCLUDE_DIR} 
+    ${ImageMagick_INCLUDE_DIRS}
     ${PROJECT_SOURCE_DIR}/include
     ${PROJECT_SOURCE_DIR}/src
 )
@@ -28,7 +28,7 @@ file(GLOB all_SRCS
 
 set(PROJECT_SOURCES main.cpp)
 add_executable(bgmaker ${all_SRCS})
-target_link_libraries(bgmaker ${OpenCV_LIBS})
+target_link_libraries(bgmaker ${ImageMagick_LIBRARIES})
 
 set_target_properties(bgmaker PROPERTIES
     CXX_STANDARD 17

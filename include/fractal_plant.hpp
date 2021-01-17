@@ -5,7 +5,7 @@
 class FractalPlant : public LSystem {
    protected:
     double angle;
-    virtual std::vector<std::pair<cv::Point2d, cv::Point2d>> get_lines() override;
+    virtual std::vector<std::pair<Point, Point>> get_lines() override;
 
    public:
     FractalPlant();
