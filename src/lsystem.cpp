@@ -29,21 +29,27 @@ std::string LSystem::produce() {
     return output;
 }
 
+std::pair<int, int> LSystem::get_dimensions() {
+    
+}
+
 void LSystem::draw() {
-    auto lines = this->get_lines();
     int width = 800;
     int height = 800;
 
     Magick::Image image(Magick::Geometry(width, height), Magick::Color("white"));
     std::vector<Magick::Drawable> draw_vector;
 
-    image.strokeColor("red");  // Outline color
+    image.strokeColor("#00ff00");  // Outline color
     image.strokeWidth(1.3);
 
-    for (auto line : lines) {
+    int x_offset = width / 2;
+    int y_offset = height;
+
+    for (auto line : this->lines) {
         draw_vector.push_back(Magick::DrawableLine(
-            line.first.x, line.first.y, 
-            line.second.x, line.second.y));
+            line.first.x + x_offset, line.first.y + y_offset, 
+            line.second.x + x_offset, line.second.y + y_offset));
     }
 
     for (auto drawable : draw_vector) {

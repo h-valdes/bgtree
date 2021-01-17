@@ -14,15 +14,14 @@ FractalBinaryTree::FractalBinaryTree() {
     this->rules.insert({"0", "1[0]0"});
     this->recursions = 5;
     this->name = "Fractal Binary Tree";
+    this->generate_lines();
 }
 
-std::vector<std::pair<Point, Point>> FractalBinaryTree::get_lines() {
+void FractalBinaryTree::generate_lines() {
     std::vector<std::pair<Point, Point>> lines;
     auto production = this->produce();
-    int width = 800;
-    int height = 800;
 
-    Point start_point(width / 2, height);
+    Point start_point(0, 0);
     Point direction(0, 1);
     double length{5};
     std::vector<Point> positions;
@@ -61,5 +60,5 @@ std::vector<std::pair<Point, Point>> FractalBinaryTree::get_lines() {
         }
     }
 
-    return lines;
+    this->lines = lines;
 }

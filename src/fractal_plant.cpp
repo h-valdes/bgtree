@@ -12,15 +12,14 @@ FractalPlant::FractalPlant() {
     this->recursions = 6;
     this->angle = M_PI / 8;
     this->name = "Fractal Plant";
+    this->generate_lines();
 }
 
-std::vector<std::pair<Point, Point>> FractalPlant::get_lines() {
+void FractalPlant::generate_lines() {
     std::vector<std::pair<Point, Point>> lines;
     auto production = this->produce();
-    int width = 800;
-    int height = 800;
 
-    Point start_point(width / 2, height);
+    Point start_point(0, 0);
     Point direction(0, 1);
     double length{4.5};
     std::vector<Point> positions;
@@ -60,5 +59,5 @@ std::vector<std::pair<Point, Point>> FractalPlant::get_lines() {
         }
     }
 
-    return lines;
+    this->lines = lines;
 }

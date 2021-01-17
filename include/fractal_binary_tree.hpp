@@ -4,7 +4,7 @@
 
 class FractalBinaryTree : public LSystem {
    protected:
-    virtual std::vector<std::pair<Point, Point>> get_lines() override;
+    virtual void generate_lines() override;
 
    public:
     FractalBinaryTree();

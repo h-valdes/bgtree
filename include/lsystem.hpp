@@ -14,8 +14,9 @@ class LSystem {
     int recursions;
     std::string name;
     std::string produce();
-    virtual std::vector<std::pair<Point, Point>> get_lines() = 0;
-
+    std::vector<std::pair<Point, Point>> lines;
+    std::pair<int, int> get_dimensions();
+    virtual void generate_lines() = 0;
    public:
     void draw();
 };
