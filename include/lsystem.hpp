@@ -13,9 +13,10 @@ class LSystem {
     std::map<std::string, std::string> rules;
     int recursions;
     std::string name;
+    int width;
+    int height;
     std::string produce();
     std::vector<std::pair<Point, Point>> lines;
-    std::pair<int, int> get_dimensions();
     virtual void generate_lines() = 0;
    public:
     void draw();

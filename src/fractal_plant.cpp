@@ -24,6 +24,10 @@ void FractalPlant::generate_lines() {
     double length{4.5};
     std::vector<Point> positions;
     std::vector<Point> directions;
+    double max_x = 0;
+    double min_x = 0;
+    double max_y = 0;
+    double min_y = 0;
 
     // Specific for the example 2 of Wikipedia
     Point last_point = start_point;
@@ -56,8 +60,30 @@ void FractalPlant::generate_lines() {
                 positions.pop_back();
                 directions.pop_back();
                 break;
+        } 
+        if (new_point.x > max_x) {
+            max_x = new_point.x;
+        }else if (new_point.x < min_x) {
+            min_x = new_point.x;
+        }
+
+        if (new_point.y < min_y) {
+            min_y = new_point.y;
+        } else if (new_point.y > max_y) {
+            max_y = new_point.y;
         }
     }
+
+    if (std::abs(max_x) > std::abs(min_x)) {
+        this->width = static_cast<int>(max_x / 2);
+    } else {
+        this->width = static_cast<int>(min_x / 2);
+    }
+
+    // this->width = static_cast<int>(std::abs(max_x - min_x));
+    this->height = static_cast<int>(std::abs(max_y - min_y));
+    std::cout << "Width: " << this->width << std::endl;
+    std::cout << "Height: " << this->height << std::endl;
 
     this->lines = lines;
 }

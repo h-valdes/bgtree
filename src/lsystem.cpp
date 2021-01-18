@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
-#include <list>
 
 std::string LSystem::produce() {
     std::string output = this->axiom;
@@ -29,26 +28,23 @@ std::string LSystem::produce() {
     return output;
 }
 
-std::pair<int, int> LSystem::get_dimensions() {
-    
-}
-
 void LSystem::draw() {
-    int width = 800;
-    int height = 800;
+    int width = 1920;
+    int height = 1080;
 
-    Magick::Image image(Magick::Geometry(width, height), Magick::Color("white"));
+    Magick::Image image(Magick::Geometry(width, height), Magick::Color("#546E7A"));
     std::vector<Magick::Drawable> draw_vector;
 
-    image.strokeColor("#00ff00");  // Outline color
+    image.strokeColor("#FFFFFF");
     image.strokeWidth(1.3);
 
-    int x_offset = width / 2;
-    int y_offset = height;
+    // int x_offset = (width / 2) - this->width;
+    int x_offset = (width / 2);
+    int y_offset = ((height - this->height) / 2) + this->height;
 
     for (auto line : this->lines) {
         draw_vector.push_back(Magick::DrawableLine(
-            line.first.x + x_offset, line.first.y + y_offset, 
+            line.first.x + x_offset, line.first.y + y_offset,
             line.second.x + x_offset, line.second.y + y_offset));
     }
 
@@ -56,5 +52,5 @@ void LSystem::draw() {
         image.draw(drawable);
     }
 
-    image.display();
+    image.write("background.png");
 }
