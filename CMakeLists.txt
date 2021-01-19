@@ -13,6 +13,8 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-unused-parameter -ftemplate-backtrace-li
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
+add_subdirectory(CLI11)
+
 include_directories( 
     ${ImageMagick_INCLUDE_DIRS}
     ${PROJECT_SOURCE_DIR}/include
@@ -28,7 +30,7 @@ file(GLOB all_SRCS
 
 set(PROJECT_SOURCES main.cpp)
 add_executable(bgmaker ${all_SRCS})
-target_link_libraries(bgmaker ${ImageMagick_LIBRARIES})
+target_link_libraries(bgmaker ${ImageMagick_LIBRARIES} CLI11::CLI11)
 
 set_target_properties(bgmaker PROPERTIES
     CXX_STANDARD 17
