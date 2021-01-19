@@ -19,5 +19,5 @@ class LSystem {
     std::vector<std::pair<Point, Point>> lines;
     virtual void generate_lines() = 0;
    public:
-    void draw();
+    void draw(bool is_preview);
 };

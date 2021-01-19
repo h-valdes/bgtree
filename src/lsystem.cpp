@@ -28,7 +28,7 @@ std::string LSystem::produce() {
     return output;
 }
 
-void LSystem::draw() {
+void LSystem::draw(bool is_preview) {
     int width = 1920;
     int height = 1080;
 
@@ -51,6 +51,9 @@ void LSystem::draw() {
     for (auto drawable : draw_vector) {
         image.draw(drawable);
     }
-
-    image.write("background.png");
+    if (is_preview == true) {
+        image.display();
+    } else {
+        image.write("background.png");
+    }
 }
