@@ -8,5 +8,5 @@ class FractalPlant : public LSystem {
     virtual void generate_lines() override;
 
    public:
-    FractalPlant();
+    FractalPlant(std::shared_ptr<user_info_t> user_info);
 };

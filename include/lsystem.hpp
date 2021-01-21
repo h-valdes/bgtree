@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <point.hpp>
+#include <user.hpp>
+#include <memory>
 
 class LSystem {
    protected:
@@ -15,9 +17,13 @@ class LSystem {
     std::string name;
     int width;
     int height;
+    std::shared_ptr<user_info_t> user_info;
     std::string produce();
     std::vector<std::pair<Point, Point>> lines;
     virtual void generate_lines() = 0;
    public:
-    void draw(bool is_preview);
+    LSystem(std::shared_ptr<user_info_t> user_info) {
+        this->user_info = user_info;
+    }
+    void draw();
 };

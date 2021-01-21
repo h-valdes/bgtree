@@ -6,7 +6,7 @@
 
 #include "utils.hpp"
 
-FractalBinaryTree::FractalBinaryTree() {
+FractalBinaryTree::FractalBinaryTree(std::shared_ptr<user_info_t> user_info) : LSystem(user_info){
     this->variables = {"0", "1"};
     this->constants = {"[", "]"};
     this->axiom = "0";

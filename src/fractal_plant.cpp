@@ -3,7 +3,7 @@
 #include <iostream>
 #include "utils.hpp"
 
-FractalPlant::FractalPlant() {
+FractalPlant::FractalPlant(std::shared_ptr<user_info_t> user_info) : LSystem(user_info) {
     this->variables = {"X", "F"};
     this->constants = {"+", "-", "[", "]"};
     this->axiom = "X";

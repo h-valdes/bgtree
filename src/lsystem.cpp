@@ -28,9 +28,9 @@ std::string LSystem::produce() {
     return output;
 }
 
-void LSystem::draw(bool is_preview) {
-    int width = 1920;
-    int height = 1080;
+void LSystem::draw() {
+    int width = this->user_info->width;
+    int height = this->user_info->height;
 
     Magick::Image image(Magick::Geometry(width, height), Magick::Color("#546E7A"));
     std::vector<Magick::Drawable> draw_vector;
@@ -51,7 +51,7 @@ void LSystem::draw(bool is_preview) {
     for (auto drawable : draw_vector) {
         image.draw(drawable);
     }
-    if (is_preview == true) {
+    if (this->user_info->is_preview == true) {
         image.display();
     } else {
         image.write("background.png");
