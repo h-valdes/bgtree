@@ -19,14 +19,4 @@ class UserInfo {
         this->background_color = "#546E7A";
         this->output_file = "background.png";
     }
-
-    void set_dimensions(int width, int height) {
-        this->width = width;
-        this->height = height;
-    }
-
-    void set_colors(std::string background_color, std::string stroke_color) {
-        this->background_color = background_color;
-        this->stroke_color = stroke_color;
-    }
 };
