@@ -36,11 +36,11 @@ void LSystem::draw() {
     std::string stroke_color = this->user_info->stroke_color;
     std::string output_file = this->user_info->output_file;
 
-    Magick::Image image(Magick::Geometry(width, height), Magick::Color(background_color));
+    // Magick::Image image(Magick::Geometry(width, height), Magick::Color(background_color));
     std::vector<Magick::Drawable> draw_vector;
 
-    image.strokeColor(stroke_color);
-    image.strokeWidth(1.3);
+    user_info->image->strokeColor(stroke_color);
+    user_info->image->strokeWidth(1.3);
 
     // int x_offset = (width / 2) - this->width;
     int x_offset = (width / 2);
@@ -53,11 +53,12 @@ void LSystem::draw() {
     }
 
     for (auto drawable : draw_vector) {
-        image.draw(drawable);
+        user_info->image->draw(drawable);
     }
+
     if (this->user_info->is_preview == true) {
-        image.display();
+        user_info->image->display();
     } else {
-        image.write(output_file);
+        user_info->image->write(output_file);
     }
 }
