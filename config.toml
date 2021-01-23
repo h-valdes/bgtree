@@ -1,3 +1,6 @@
+[general]
+output-file = "bg1.png"
+
 [draw]
-preview = true
-background = "#111111"
+background-color = "#111111"
+stroke-color = "#F1F11F"

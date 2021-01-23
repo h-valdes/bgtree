@@ -37,5 +37,10 @@ And to preview the image with ImageMagick
 $ ./bgmaker draw --preview
 ```
 
+To override the default values use the config file 
+```bash
+$ ./bgmaker draw --preview --config "../config.toml"
+```
+
 # Samples
 ![](screenshots/background.png)
