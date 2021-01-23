@@ -1,6 +1,7 @@
 #include "user.hpp"
-#include <toml.hpp>
+
 #include <string>
+#include <toml.hpp>
 
 UserInfo::UserInfo() {
     this->height = 1080;
@@ -13,7 +14,7 @@ UserInfo::UserInfo() {
 
 void UserInfo::create_empty_canvas() {
     this->image = std::make_shared<Magick::Image>(
-        Magick::Geometry(this->width, this->height), 
+        Magick::Geometry(this->width, this->height),
         Magick::Color(this->background_color));
 }
 
@@ -29,7 +30,7 @@ void UserInfo::read_config(std::string config_path) {
         const auto& draw = toml::find(data, "draw");
         if (data.at("draw").contains("background-color"))
             this->background_color = toml::find<std::string>(draw, "background-color");
-        
+
         if (data.at("draw").contains("stroke-color"))
             this->stroke_color = toml::find<std::string>(draw, "stroke-color");
     }
