@@ -13,9 +13,9 @@ $ sudo apt install libmagick++-dev
 ```
 
 ## Build
-First clone this repository
+Clone this repository and all his submodules
 ```bash
-$ git clone https://github.com/h-valdes/bgmaker
+$ git clone --recursive https://github.com/h-valdes/bgmaker
 ```
 
 ```bash
