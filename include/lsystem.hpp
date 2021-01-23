@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <point.hpp>
+#include <geometry.hpp>
 #include <user.hpp>
 #include <memory>
 
@@ -17,12 +17,12 @@ class LSystem {
     std::string name;
     int width;
     int height;
-    std::shared_ptr<user_info_t> user_info;
+    std::shared_ptr<UserInfo> user_info;
     std::string produce();
-    std::vector<std::pair<Point, Point>> lines;
+    std::vector<std::pair<Point<double>, Point<double>>> lines;
     virtual void generate_lines() = 0;
    public:
-    LSystem(std::shared_ptr<user_info_t> user_info) {
+    LSystem(std::shared_ptr<UserInfo> user_info) {
         this->user_info = user_info;
     }
     void draw();

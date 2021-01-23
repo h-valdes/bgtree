@@ -9,9 +9,7 @@
 int main(int argc, char** argv) {
     CLI::App app;
 
-    auto user_info = std::make_shared<user_info_t>();
-    user_info->height = 1080;
-    user_info->width =  1920;
+    auto user_info = std::make_shared<UserInfo>();
 
     // Subcommand draw
     auto draw_sub = app.add_subcommand("draw", "Draw");

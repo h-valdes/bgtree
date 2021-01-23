@@ -1,9 +1,9 @@
 #include "fractal_plant.hpp"
 
 #include <iostream>
-#include "utils.hpp"
+#include "geometry.hpp"
 
-FractalPlant::FractalPlant(std::shared_ptr<user_info_t> user_info) : LSystem(user_info) {
+FractalPlant::FractalPlant(const std::shared_ptr<UserInfo> user_info) : LSystem(user_info) {
     this->variables = {"X", "F"};
     this->constants = {"+", "-", "[", "]"};
     this->axiom = "X";
@@ -16,33 +16,33 @@ FractalPlant::FractalPlant(std::shared_ptr<user_info_t> user_info) : LSystem(use
 }
 
 void FractalPlant::generate_lines() {
-    std::vector<std::pair<Point, Point>> lines;
+    std::vector<std::pair<Point<double>, Point<double>>> lines;
     auto production = this->produce();
 
-    Point start_point(0, 0);
-    Point direction(0, 1);
+    Point<double> start_point(0, 0);
+    Point<double> direction(0, 1);
     double length{4.5};
-    std::vector<Point> positions;
-    std::vector<Point> directions;
+    std::vector<Point<double>> positions;
+    std::vector<Point<double>> directions;
     double max_x = 0;
     double min_x = 0;
     double max_y = 0;
     double min_y = 0;
 
     // Specific for the example 2 of Wikipedia
-    Point last_point = start_point;
-    Point last_direction = direction;
+    Point<double> last_point = start_point;
+    Point<double> last_direction = direction;
 
-    Point new_point;
+    Point<double> new_point;
     for (char cursor : production) {
         switch (cursor) {
             case 'X':
                 break;
             case '-':
-                last_direction = utils::get_rotated_direction(last_direction, -1 * angle);
+                last_direction = get_rotated_direction(last_direction, -1 * angle);
                 break;
             case '+':
-                last_direction = utils::get_rotated_direction(last_direction, angle);
+                last_direction = get_rotated_direction(last_direction, angle);
                 break;
             case 'F':
                 new_point.x = last_point.x + (last_direction.x * length);
