@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <string>
 
 std::string LSystem::produce() {
     std::string output = this->axiom;
@@ -31,11 +32,14 @@ std::string LSystem::produce() {
 void LSystem::draw() {
     int width = this->user_info->width;
     int height = this->user_info->height;
+    std::string background_color = this->user_info->background_color;
+    std::string stroke_color = this->user_info->stroke_color;
+    std::string output_file = this->user_info->output_file;
 
-    Magick::Image image(Magick::Geometry(width, height), Magick::Color("#546E7A"));
+    Magick::Image image(Magick::Geometry(width, height), Magick::Color(background_color));
     std::vector<Magick::Drawable> draw_vector;
 
-    image.strokeColor("#FFFFFF");
+    image.strokeColor(stroke_color);
     image.strokeWidth(1.3);
 
     // int x_offset = (width / 2) - this->width;
@@ -54,6 +58,6 @@ void LSystem::draw() {
     if (this->user_info->is_preview == true) {
         image.display();
     } else {
-        image.write("background.png");
+        image.write(output_file);
     }
 }
