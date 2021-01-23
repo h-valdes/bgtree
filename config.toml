@@ -4,3 +4,10 @@ output-file = "bg1.png"
 [draw]
 background-color = "#111111"
 stroke-color = "#F1F11F"
+
+[fractal-plant]
+    [fractal-plant.1]
+    name = "fp1"
+
+    [fractal-plant.2]
+    name = "fp2"

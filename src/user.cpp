@@ -2,6 +2,7 @@
 
 #include <string>
 #include <toml.hpp>
+#include <iostream>
 
 UserInfo::UserInfo() {
     this->height = 1080;
@@ -33,5 +34,12 @@ void UserInfo::read_config(std::string config_path) {
 
         if (data.at("draw").contains("stroke-color"))
             this->stroke_color = toml::find<std::string>(draw, "stroke-color");
+    }
+
+    if (data.contains("fractal-plant")) {
+        const auto& servers = toml::find(data, "fractal-plant");
+        for (const auto& item : servers.as_table()) {
+            std::cout << item.first << std::endl;
+        } 
     }
 }
