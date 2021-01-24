@@ -20,4 +20,5 @@ class UserInfo {
     UserInfo();
     void read_config(std::string config_path);
     void create_empty_canvas();
+    void draw();
 };

@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <toml.hpp>
+#include "fractal_plant.hpp"
 
 UserInfo::UserInfo() {
     this->general_info.height = 1080;
@@ -29,14 +30,34 @@ void UserInfo::read_config(std::string config_path) {
     
     for (auto drawing_option : this->drawing_options) {
         if (data.contains(drawing_option)) {
-            const auto& servers = toml::find(data, drawing_option);
+            const auto& lsystems = toml::find(data, drawing_option);
             auto key = drawing_option;
-            std::vector<config::Drawable> configs;
-            for (const auto& item : servers.as_table()) {
+            std::vector<config::Drawable> drawable_configs;
+            for (const auto& item : lsystems.as_table()) {
                 std::cout << item.first << std::endl;
-                auto drawable_config = toml::find<config::Drawable>(servers, item.first);
-            } 
+                auto drawable_config = toml::find<config::Drawable>(lsystems, item.first);
+                drawable_configs.push_back(drawable_config);
+            }
+            this->drawable_config.insert(
+                {key, drawable_configs});
         }
     }
+}
 
+void UserInfo::draw() {
+    int width = this->general_info.width;
+    int height = this->general_info.height;
+
+    for (auto item : this->drawable_config) {
+        auto name = item.first;
+        auto configs = item.second;
+        if (configs.size() > 0 && name == "fractal-plant") {
+            int offset = 500;
+            for (auto config : configs) {
+                FractalPlant fplant = FractalPlant(config);
+                fplant.draw(this->image, width - offset, height);
+                offset += 100;
+            }
+        }
+    }
 }

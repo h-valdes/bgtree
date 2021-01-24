@@ -6,7 +6,7 @@
 
 #include "geometry.hpp"
 
-FractalBinaryTree::FractalBinaryTree(const std::shared_ptr<UserInfo> user_info) : LSystem(user_info){
+FractalBinaryTree::FractalBinaryTree(config::Drawable config) : LSystem(config){
     this->variables = {"0", "1"};
     this->constants = {"[", "]"};
     this->axiom = "0";

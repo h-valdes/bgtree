@@ -41,9 +41,13 @@ int main(int argc, char** argv) {
             user_info->general_info.output_file = output_path;
 
         user_info->create_empty_canvas();
-
-        FractalPlant fplant = FractalPlant(user_info);
-        fplant.draw();
+        user_info->draw();
+        
+        if (user_info->is_preview == true) {
+            user_info->image->display();
+        } else {
+            user_info->image->write(user_info->general_info.output_file);
+        }      
     });
 
     CLI11_PARSE(app, argc, argv);

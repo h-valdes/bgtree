@@ -6,6 +6,7 @@
 #include <geometry.hpp>
 #include <user.hpp>
 #include <memory>
+#include "config.hpp"
 
 class LSystem {
    protected:
@@ -17,13 +18,13 @@ class LSystem {
     std::string name;
     int width;
     int height;
-    std::shared_ptr<UserInfo> user_info;
+    config::Drawable config;
     std::string produce();
     std::vector<std::pair<Point<double>, Point<double>>> lines;
     virtual void generate_lines() = 0;
    public:
-    LSystem(std::shared_ptr<UserInfo> user_info) {
-        this->user_info = user_info;
+    LSystem(config::Drawable config) {
+        this->config = config;
     }
-    void draw();
+    void draw(std::shared_ptr<Magick::Image> image, int width, int height);
 };

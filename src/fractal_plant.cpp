@@ -3,7 +3,7 @@
 #include <iostream>
 #include "geometry.hpp"
 
-FractalPlant::FractalPlant(const std::shared_ptr<UserInfo> user_info) : LSystem(user_info) {
+FractalPlant::FractalPlant(config::Drawable config) : LSystem(config) {
     this->variables = {"X", "F"};
     this->constants = {"+", "-", "[", "]"};
     this->axiom = "X";

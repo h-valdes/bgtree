@@ -29,18 +29,13 @@ std::string LSystem::produce() {
     return output;
 }
 
-void LSystem::draw() {
-    int width = this->user_info->general_info.width;
-    int height = this->user_info->general_info.height;
-    std::string background_color = this->user_info->general_info.background_color;
-    std::string stroke_color = this->user_info->stroke_color;
-    std::string output_file = this->user_info->general_info.output_file;
+void LSystem::draw(std::shared_ptr<Magick::Image> image, int width, int height) {
 
     // Magick::Image image(Magick::Geometry(width, height), Magick::Color(background_color));
     std::vector<Magick::Drawable> draw_vector;
 
-    user_info->image->strokeColor(stroke_color);
-    user_info->image->strokeWidth(1.3);
+    image->strokeColor(config.stroke_color);
+    image->strokeWidth(config.stroke_width);
 
     // int x_offset = (width / 2) - this->width;
     int x_offset = (width / 2);
@@ -53,12 +48,6 @@ void LSystem::draw() {
     }
 
     for (auto drawable : draw_vector) {
-        user_info->image->draw(drawable);
-    }
-
-    if (this->user_info->is_preview == true) {
-        user_info->image->display();
-    } else {
-        user_info->image->write(output_file);
+        image->draw(drawable);
     }
 }

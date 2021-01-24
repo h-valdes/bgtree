@@ -7,5 +7,5 @@ class FractalBinaryTree : public LSystem {
     virtual void generate_lines() override;
 
    public:
-    FractalBinaryTree(std::shared_ptr<UserInfo> user_info);
+    FractalBinaryTree(config::Drawable config);
 };
