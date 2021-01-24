@@ -1,6 +1,6 @@
 [general]
-output-file = "bg1.png"
-background-color = "#ECEFF4"
+output-file = "bg3.png"
+background-color = "#000000"
 width = 1920
 height = 1080
 
@@ -20,7 +20,10 @@ height = 1080
     y-centered = true
     mirror = true
 
-# [fractal-binary-tree]
-#     [fractal-binary-tree.fbtree1]
-#     stroke-color = "#00FF00"
-#     stroke-width = 2.0
+[fractal-binary-tree]
+    [fractal-binary-tree.fbtree1]
+    stroke-color = "#EBCB8B"
+    stroke-width = 1.2
+    y-offset = 75
+    x-centered = true
+    y-centered = true
