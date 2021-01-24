@@ -7,7 +7,7 @@ height = 1080
 [fractal-plant]
     [fractal-plant.fp1]
     stroke-color = "#F1F11F"
-    stroke-width = 3.0
+    stroke-width = 2.0
 
     [fractal-plant.fp2]
     stroke-color = "#F1F11F"
@@ -16,9 +16,7 @@ height = 1080
     y-offset = 5
     is-centered = true
 
-    [fractal-plant.fp3]
-    stroke-color = "#E1FA1F"
-    stroke-width = 0.5
-    x-offset = 5
-    y-offset = 5
-    is-centered = true
+[fractal-binary-tree]
+    [fractal-binary-tree.fbtree1]
+    stroke-color = "#00FF00"
+    stroke-width = 2.0

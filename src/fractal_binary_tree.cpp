@@ -12,7 +12,7 @@ FractalBinaryTree::FractalBinaryTree(config::Drawable config) : LSystem(config){
     this->axiom = "0";
     this->rules.insert({"1", "11"});
     this->rules.insert({"0", "1[0]0"});
-    this->recursions = 5;
+    this->recursions = 8;
     this->name = "Fractal Binary Tree";
     this->generate_lines();
 }
@@ -23,7 +23,7 @@ void FractalBinaryTree::generate_lines() {
 
     Point<double> start_point(0, 0);
     Point<double> direction(0, 1);
-    double length{5};
+    double length{2};
     std::vector<Point<double>> positions;
     std::vector<Point<double>> directions;
     double max_x = 0;
@@ -76,7 +76,13 @@ void FractalBinaryTree::generate_lines() {
         }
     }
 
-    this->width = static_cast<int>(std::abs(max_x - min_x));
+    if (std::abs(max_x) > std::abs(min_x)) {
+        this->width = static_cast<int>(max_x / 2);
+    } else {
+        this->width = static_cast<int>(min_x / 2);
+    }
+
+    // this->width = static_cast<int>(std::abs(max_x - min_x));
     this->height = static_cast<int>(std::abs(max_y - min_y));
     std::cout << "Width: " << this->width << std::endl;
     std::cout << "Height: " << this->height << std::endl;

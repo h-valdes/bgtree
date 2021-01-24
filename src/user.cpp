@@ -5,6 +5,7 @@
 #include <iostream>
 #include <toml.hpp>
 #include "fractal_plant.hpp"
+#include "fractal_binary_tree.hpp"
 
 UserInfo::UserInfo() {
     this->general_info.height = 1080;
@@ -51,12 +52,18 @@ void UserInfo::draw() {
     for (auto item : this->drawable_config) {
         auto name = item.first;
         auto configs = item.second;
+        int offset = 500;
         if (configs.size() > 0 && name == "fractal-plant") {
-            int offset = 500;
             for (auto config : configs) {
                 FractalPlant fplant = FractalPlant(config);
                 fplant.draw(this->image, width - offset, height);
                 offset += 100;
+            }
+        } else if (configs.size() > 0 && name == "fractal-binary-tree") {
+            for (auto config : configs) {
+                offset += 500;
+                FractalBinaryTree fbtree = FractalBinaryTree(config);
+                fbtree.draw(this->image, width + offset, height);
             }
         }
     }
