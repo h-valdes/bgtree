@@ -74,7 +74,9 @@
         "unordered_set": "cpp",
         "valarray": "cpp",
         "hash_map": "cpp",
-        "hash_set": "cpp"
+        "hash_set": "cpp",
+        "csetjmp": "cpp",
+        "*.ipp": "cpp"
     },
     "python.autoComplete.extraPaths": [
         "/home/humboldt/catkin_ws/devel/lib/python3/dist-packages",

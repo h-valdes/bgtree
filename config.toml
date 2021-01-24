@@ -6,8 +6,13 @@ background-color = "#111111"
 stroke-color = "#F1F11F"
 
 [fractal-plant]
-    [fractal-plant.1]
-    name = "fp1"
+    [fractal-plant.fp1]
+    stroke-color = "#F1F11F"
+    stroke-width = 1.0
 
-    [fractal-plant.2]
-    name = "fp2"
+    [fractal-plant.fp2]
+    stroke-color = "#F1F11F"
+    stroke-width = 1.0
+    x-offset = 5
+    y-offset = 5
+    is-centered = true

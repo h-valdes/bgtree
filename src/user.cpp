@@ -1,7 +1,7 @@
 #include "user.hpp"
 
 #include <string>
-#include <toml.hpp>
+#include <vector>
 #include <iostream>
 
 UserInfo::UserInfo() {
@@ -35,11 +35,17 @@ void UserInfo::read_config(std::string config_path) {
         if (data.at("draw").contains("stroke-color"))
             this->stroke_color = toml::find<std::string>(draw, "stroke-color");
     }
-
-    if (data.contains("fractal-plant")) {
-        const auto& servers = toml::find(data, "fractal-plant");
-        for (const auto& item : servers.as_table()) {
-            std::cout << item.first << std::endl;
-        } 
+    
+    for (auto drawing_option : this->drawing_options) {
+        if (data.contains(drawing_option)) {
+            const auto& servers = toml::find(data, drawing_option);
+            auto key = drawing_option;
+            std::vector<DrawableConfig> configs;
+            for (const auto& item : servers.as_table()) {
+                std::cout << item.first << std::endl;
+                auto drawable_config = toml::find<DrawableConfig>(servers, item.first);
+            } 
+        }
     }
+
 }
