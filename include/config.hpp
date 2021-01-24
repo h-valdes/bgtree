@@ -9,11 +9,19 @@ struct Drawable {
     double stroke_width;
     int x_offset;
     int y_offset;
-    bool is_centered;
+    double length;
+    bool x_centered;
+    bool y_centered;
 
     void from_toml(const toml::value& v) {
         this->stroke_color = toml::find<std::string>(v, "stroke-color");
         this->stroke_width = toml::find<double>(v, "stroke-width");
+
+        if (v.contains("length")) {
+            this->length = toml::find<double>(v, "length");
+        } else {
+            this->length = 2;
+        }
 
         if (v.contains("x-offset")) {
             this->x_offset = toml::find<int>(v, "x-offset");
@@ -27,10 +35,16 @@ struct Drawable {
             this->y_offset = 0;
         }
 
-        if (v.contains("is-centered")) {
-            this->is_centered = toml::find<bool>(v, "is-centered");
+        if (v.contains("x-centered")) {
+            this->x_centered = toml::find<bool>(v, "x-centered");
         } else {
-            this->is_centered = true;
+            this->x_centered = true;
+        }
+
+        if (v.contains("y-centered")) {
+            this->y_centered = toml::find<bool>(v, "y-centered");
+        } else {
+            this->y_centered = true;
         }
 
         return;

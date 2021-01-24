@@ -40,14 +40,7 @@ int main(int argc, char** argv) {
         if (*output_option)
             user_info->general_info.output_file = output_path;
 
-        user_info->create_empty_canvas();
-        user_info->draw();
-        
-        if (user_info->is_preview == true) {
-            user_info->image->display();
-        } else {
-            user_info->image->write(user_info->general_info.output_file);
-        }      
+        user_info->draw();       
     });
 
     CLI11_PARSE(app, argc, argv);

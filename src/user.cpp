@@ -1,11 +1,12 @@
 #include "user.hpp"
 
-#include <string>
-#include <vector>
 #include <iostream>
+#include <string>
 #include <toml.hpp>
-#include "fractal_plant.hpp"
+#include <vector>
+
 #include "fractal_binary_tree.hpp"
+#include "fractal_plant.hpp"
 
 UserInfo::UserInfo() {
     this->general_info.height = 1080;
@@ -28,7 +29,7 @@ void UserInfo::read_config(std::string config_path) {
         auto general_config = toml::find<config::General>(data, "general");
         this->general_info = general_config;
     }
-    
+
     for (auto drawing_option : this->drawing_options) {
         if (data.contains(drawing_option)) {
             const auto& lsystems = toml::find(data, drawing_option);
@@ -46,25 +47,30 @@ void UserInfo::read_config(std::string config_path) {
 }
 
 void UserInfo::draw() {
+    this->create_empty_canvas();
+
     int width = this->general_info.width;
     int height = this->general_info.height;
 
     for (auto item : this->drawable_config) {
         auto name = item.first;
         auto configs = item.second;
-        int offset = 500;
         if (configs.size() > 0 && name == "fractal-plant") {
             for (auto config : configs) {
                 FractalPlant fplant = FractalPlant(config);
-                fplant.draw(this->image, width - offset, height);
-                offset += 100;
+                fplant.draw(this->image, width, height);
             }
         } else if (configs.size() > 0 && name == "fractal-binary-tree") {
             for (auto config : configs) {
-                offset += 500;
                 FractalBinaryTree fbtree = FractalBinaryTree(config);
-                fbtree.draw(this->image, width + offset, height);
+                fbtree.draw(this->image, width, height);
             }
         }
+    }
+
+    if (this->is_preview == true) {
+        this->image->display();
+    } else {
+        this->image->write(this->general_info.output_file);
     }
 }

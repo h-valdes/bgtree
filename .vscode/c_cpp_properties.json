@@ -1,17 +1,18 @@
 {
-  "configurations": [
-    {
-      "browse": {
-        "databaseFilename": "",
-        "limitSymbolsToIncludedHeaders": true
-      },
-      "includePath": [
-        "/usr/include/**",
-        "include/**",
-        "CLI11/include/**",
-        "toml11/**"
-      ]
-    }
-  ],
-  "version": 4
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "include/**",
+                "CLI11/include/**",
+                "toml11/**",
+                "/usr/include/ImageMagick-6",
+                "/usr/include/x86_64-linux-gnu/ImageMagick-6"
+            ]
+        }
+    ],
+    "version": 4
 }

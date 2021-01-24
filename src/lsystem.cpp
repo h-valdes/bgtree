@@ -37,9 +37,19 @@ void LSystem::draw(std::shared_ptr<Magick::Image> image, int width, int height) 
     image->strokeColor(config.stroke_color);
     image->strokeWidth(config.stroke_width);
 
-    // int x_offset = (width / 2) - this->width;
-    int x_offset = (width / 2);
-    int y_offset = ((height - this->height) / 2) + this->height;
+    int x_offset, y_offset;
+
+    if (config.x_centered) {
+        x_offset = (width / 2) + config.x_offset;
+    } else {
+        x_offset = config.x_offset;
+    }
+
+    if (config.y_centered) {
+        y_offset = ((height - this->height) / 2) + this->height + config.y_offset;
+    } else {
+        y_offset = config.y_offset;
+    }
 
     for (auto line : this->lines) {
         draw_vector.push_back(Magick::DrawableLine(
