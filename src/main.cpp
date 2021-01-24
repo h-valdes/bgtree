@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
             user_info->is_preview = flag_preview;
 
         if (*output_option)
-            user_info->output_file = output_path;
+            user_info->general_info.output_file = output_path;
 
         user_info->create_empty_canvas();
 

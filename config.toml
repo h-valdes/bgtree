@@ -1,9 +1,8 @@
 [general]
 output-file = "bg1.png"
-
-[draw]
 background-color = "#111111"
-stroke-color = "#F1F11F"
+width = 1920
+height = 1080
 
 [fractal-plant]
     [fractal-plant.fp1]

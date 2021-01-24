@@ -30,11 +30,11 @@ std::string LSystem::produce() {
 }
 
 void LSystem::draw() {
-    int width = this->user_info->width;
-    int height = this->user_info->height;
-    std::string background_color = this->user_info->background_color;
+    int width = this->user_info->general_info.width;
+    int height = this->user_info->general_info.height;
+    std::string background_color = this->user_info->general_info.background_color;
     std::string stroke_color = this->user_info->stroke_color;
-    std::string output_file = this->user_info->output_file;
+    std::string output_file = this->user_info->general_info.output_file;
 
     // Magick::Image image(Magick::Geometry(width, height), Magick::Color(background_color));
     std::vector<Magick::Drawable> draw_vector;
