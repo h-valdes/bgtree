@@ -12,6 +12,7 @@ struct Drawable {
     double length;
     bool x_centered;
     bool y_centered;
+    bool mirror;
 
     void from_toml(const toml::value& v) {
         this->stroke_color = toml::find<std::string>(v, "stroke-color");
@@ -45,6 +46,12 @@ struct Drawable {
             this->y_centered = toml::find<bool>(v, "y-centered");
         } else {
             this->y_centered = true;
+        }
+
+        if (v.contains("mirror")) {
+            this->mirror = toml::find<bool>(v, "mirror");
+        } else {
+            this->mirror = false;
         }
 
         return;

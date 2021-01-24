@@ -43,4 +43,45 @@ $ ./bgmaker draw --preview --config "../config.toml"
 ```
 
 # Samples
-![](screenshots/background.png)
+```toml
+# config file
+[general]
+output-file = "bg1.png"
+background-color = "#ECEFF4"
+width = 1920
+height = 1080
+
+[fractal-plant]
+    [fractal-plant.fp1]
+    stroke-color = "#88C0D0"
+    stroke-width = 1.5
+    x-offset = -350
+    x-centered = true
+    y-centered = true
+
+    [fractal-plant.fp2]
+    stroke-color = "#D08770"
+    stroke-width = 1.5
+    x-offset = 350
+    x-centered = true
+    y-centered = true
+    mirror = true
+```
+![](screenshots/bg1.png)
+
+```toml
+# config file
+[general]
+output-file = "bg2.png"
+background-color = "#ECEFF4"
+width = 1920
+height = 1080
+
+[fractal-plant]
+    [fractal-plant.fp1]
+    stroke-color = "#88C0D0"
+    stroke-width = 1.5
+    x-centered = true
+    y-centered = true
+```
+![](screenshots/bg2.png)

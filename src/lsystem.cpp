@@ -51,6 +51,9 @@ void LSystem::draw(std::shared_ptr<Magick::Image> image, int width, int height) 
         y_offset = config.y_offset;
     }
 
+    if (config.mirror)
+        this->mirror_lines();
+
     for (auto line : this->lines) {
         draw_vector.push_back(Magick::DrawableLine(
             line.first.x + x_offset, line.first.y + y_offset,
@@ -60,4 +63,17 @@ void LSystem::draw(std::shared_ptr<Magick::Image> image, int width, int height) 
     for (auto drawable : draw_vector) {
         image->draw(drawable);
     }
+}
+
+void LSystem::mirror_lines() {
+    std::cout << "Mirror lines" << std::endl;
+    std::vector<std::pair<Point<double>, Point<double>>> new_lines;
+    for (auto line : this->lines) {
+        auto new_first = line.first;
+        auto new_second = line.second;
+        new_first.x *= -1;
+        new_second.x *= -1;
+        new_lines.push_back({new_first, new_second});
+    }
+    this->lines = new_lines; 
 }

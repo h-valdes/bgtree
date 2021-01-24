@@ -27,4 +27,5 @@ class LSystem {
         this->config = config;
     }
     void draw(std::shared_ptr<Magick::Image> image, int width, int height);
+    void mirror_lines();
 };
