@@ -16,7 +16,8 @@ class UserInfo {
     std::map<std::string, std::vector<config::LSystem>> drawable_config;
     std::vector<std::string> drawing_options{
         "fractal-plant",
-        "fractal-binary-tree"};
+        "fractal-binary-tree",
+        "triangle"};
     UserInfo();
     void read_config(std::string config_path);
     void create_empty_canvas();

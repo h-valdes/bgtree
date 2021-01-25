@@ -7,6 +7,7 @@
 
 #include "lsystem/fractal_binary_tree.hpp"
 #include "lsystem/fractal_plant.hpp"
+#include "lsystem/triangle.hpp"
 
 UserInfo::UserInfo() {
     this->general_info.height = 1080;
@@ -64,6 +65,11 @@ void UserInfo::draw() {
             for (auto config : configs) {
                 FractalBinaryTree fbtree = FractalBinaryTree(config);
                 fbtree.draw(this->image, width, height);
+            }
+        } else if (configs.size() > 0 && name == "triangle") {
+            for (auto config : configs) {
+                Triangle triangle = Triangle(config);
+                triangle.draw(this->image, width, height);
             }
         }
     }

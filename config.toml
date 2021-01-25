@@ -5,15 +5,23 @@ width = 1920
 height = 1080
 
 # [fractal-plant]
-#     [fractal-plant.fplant1]
-#     stroke-color = "#88C0D0"
-#     stroke-width = 1.5
-#     x-centered = true
-#     y-centered = true
+    # [fractal-plant.fplant1]
+    # stroke-color = "#88C0D0"
+    # stroke-width = 1.5
+    # recursions = 6
+    # length = 4.5
+    # angle = 0.5
+    # x-centered = true
+    # y-centered = true
 
-[fractal-binary-tree]
-    [fractal-binary-tree.fbtree1]
+[triangle]
+    [triangle.triangle1]
     stroke-color = "#88C0D0"
     stroke-width = 1.5
     x-centered = true
     y-centered = true
+    y-offset = -500
+    x-offset = 200
+    angle = 2.0944
+    recursions = 6
+    length = 20.2

@@ -10,9 +10,9 @@ class FractalPlant : public LSystem {
         this->axiom = "X";
         this->rules.insert({"X", "F+[[X]-X]-F[-FX]+X"});
         this->rules.insert({"F", "FF"});
-        this->recursions = 6;
-        this->angle = M_PI / 8;
-        this->length = 4.5;
+        this->recursions = config.recursions;
+        this->angle = config.angle;
+        this->length = config.length;
         this->name = "Fractal Plant";
         this->generate_lines();
     }

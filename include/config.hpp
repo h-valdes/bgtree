@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <string>
 #include <toml.hpp>
 
@@ -9,7 +10,11 @@ struct LSystem {
     double stroke_width;
     int x_offset;
     int y_offset;
+    int recursions;
+    double angle;
+    double angle_increment;
     double length;
+    double length_increment;
     bool x_centered;
     bool y_centered;
     bool mirror;
@@ -18,10 +23,34 @@ struct LSystem {
         this->stroke_color = toml::find<std::string>(v, "stroke-color");
         this->stroke_width = toml::find<double>(v, "stroke-width");
 
+        if (v.contains("recursions")) {
+            this->recursions = toml::find<int>(v, "recursions");
+        } else {
+            this->recursions = 2;
+        }
+
         if (v.contains("length")) {
             this->length = toml::find<double>(v, "length");
         } else {
             this->length = 2;
+        }
+
+        if (v.contains("length-increment")) {
+            this->length_increment = toml::find<double>(v, "length-increment");
+        } else {
+            this->length_increment = this->length / 10;
+        }
+
+        if (v.contains("angle")) {
+            this->angle = toml::find<double>(v, "angle");
+        } else {
+            this->angle = M_PI / 4;
+        }
+
+        if (v.contains("angle-increment")) {
+            this->angle_increment = toml::find<double>(v, "angle-increment");
+        } else {
+            this->angle_increment = this->angle / 10;
         }
 
         if (v.contains("x-offset")) {
@@ -63,7 +92,7 @@ struct General {
     std::string background_color;
     int width;
     int height;
-    
+
     void from_toml(const toml::value& v) {
         if (v.contains("output-file")) {
             this->output_file = toml::find<std::string>(v, "output-file");
