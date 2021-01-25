@@ -18,12 +18,12 @@ class LSystem {
     std::string name;
     int width;
     int height;
-    config::Drawable config;
+    config::LSystem config;
     std::string produce();
     std::vector<std::pair<Point<double>, Point<double>>> lines;
     virtual void generate_lines() = 0;
    public:
-    LSystem(config::Drawable config) {
+    LSystem(config::LSystem config) {
         this->config = config;
     }
     void draw(std::shared_ptr<Magick::Image> image, int width, int height);

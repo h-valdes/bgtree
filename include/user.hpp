@@ -13,7 +13,7 @@ class UserInfo {
     bool is_preview;
     std::string stroke_color;
     std::shared_ptr<Magick::Image> image;
-    std::map<std::string, std::vector<config::Drawable>> drawable_config;
+    std::map<std::string, std::vector<config::LSystem>> drawable_config;
     std::vector<std::string> drawing_options{
         "fractal-plant",
         "fractal-binary-tree"};

@@ -3,8 +3,6 @@
 #include <string>
 
 #include "CLI/CLI.hpp"
-#include "fractal_binary_tree.hpp"
-#include "fractal_plant.hpp"
 #include "user.hpp"
 
 int main(int argc, char** argv) {

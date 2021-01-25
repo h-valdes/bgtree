@@ -4,7 +4,7 @@
 #include <toml.hpp>
 
 namespace config {
-struct Drawable {
+struct LSystem {
     std::string stroke_color;
     double stroke_width;
     int x_offset;

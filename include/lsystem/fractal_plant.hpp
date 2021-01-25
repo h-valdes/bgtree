@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lsystem.hpp"
+#include "lsystem/lsystem.hpp"
 
 class FractalPlant : public LSystem {
    protected:
@@ -8,5 +8,5 @@ class FractalPlant : public LSystem {
     virtual void generate_lines() override;
 
    public:
-    FractalPlant(config::Drawable config);
+    FractalPlant(config::LSystem config);
 };

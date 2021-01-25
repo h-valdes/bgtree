@@ -1,4 +1,4 @@
-#include "lsystem.hpp"
+#include "lsystem/lsystem.hpp"
 
 #include <Magick++.h>
 

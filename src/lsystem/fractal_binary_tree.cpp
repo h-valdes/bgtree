@@ -1,27 +1,29 @@
-#include "fractal_plant.hpp"
+#include "lsystem/fractal_binary_tree.hpp"
 
+#include <algorithm>
+#include <cmath>
 #include <iostream>
+
 #include "geometry.hpp"
 
-FractalPlant::FractalPlant(config::Drawable config) : LSystem(config) {
-    this->variables = {"X", "F"};
-    this->constants = {"+", "-", "[", "]"};
-    this->axiom = "X";
-    this->rules.insert({"X", "F+[[X]-X]-F[-FX]+X"});
-    this->rules.insert({"F", "FF"});
-    this->recursions = 6;
-    this->angle = M_PI / 8;
-    this->name = "Fractal Plant";
+FractalBinaryTree::FractalBinaryTree(config::LSystem config) : LSystem(config){
+    this->variables = {"0", "1"};
+    this->constants = {"[", "]"};
+    this->axiom = "0";
+    this->rules.insert({"1", "11"});
+    this->rules.insert({"0", "1[0]0"});
+    this->recursions = 8;
+    this->name = "Fractal Binary Tree";
     this->generate_lines();
 }
 
-void FractalPlant::generate_lines() {
+void FractalBinaryTree::generate_lines() {
     std::vector<std::pair<Point<double>, Point<double>>> lines;
     auto production = this->produce();
 
     Point<double> start_point(0, 0);
     Point<double> direction(0, 1);
-    double length{4.5};
+    double length{2};
     std::vector<Point<double>> positions;
     std::vector<Point<double>> directions;
     double max_x = 0;
@@ -36,31 +38,31 @@ void FractalPlant::generate_lines() {
     Point<double> new_point;
     for (char cursor : production) {
         switch (cursor) {
-            case 'X':
-                break;
-            case '-':
-                last_direction = get_rotated_direction(last_direction, -1 * angle);
-                break;
-            case '+':
-                last_direction = get_rotated_direction(last_direction, angle);
-                break;
-            case 'F':
+            case '0':
                 new_point.x = last_point.x + (last_direction.x * length);
                 new_point.y = last_point.y - (last_direction.y * length);
+                lines.push_back({last_point, new_point});
+                break;
+            case '1':
+                new_point.x = last_point.x + (last_direction.x * length);
+                new_point.y = last_point.y - (last_direction.y * length);
+
                 lines.push_back({last_point, new_point});
                 last_point = new_point;
                 break;
             case '[':
                 positions.push_back(last_point);
                 directions.push_back(last_direction);
+                last_direction = get_rotated_direction<double>(last_direction, M_PI / 4);
                 break;
             case ']':
-                last_direction = directions.back();
+                last_direction = get_rotated_direction<double>(directions.back(), -1 * M_PI / 4);
                 last_point = positions.back();
                 positions.pop_back();
                 directions.pop_back();
                 break;
-        } 
+        }
+
         if (new_point.x > max_x) {
             max_x = new_point.x;
         }else if (new_point.x < min_x) {
@@ -84,6 +86,6 @@ void FractalPlant::generate_lines() {
     this->height = static_cast<int>(std::abs(max_y - min_y));
     std::cout << "Width: " << this->width << std::endl;
     std::cout << "Height: " << this->height << std::endl;
-
+    
     this->lines = lines;
 }

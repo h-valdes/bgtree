@@ -5,8 +5,8 @@
 #include <toml.hpp>
 #include <vector>
 
-#include "fractal_binary_tree.hpp"
-#include "fractal_plant.hpp"
+#include "lsystem/fractal_binary_tree.hpp"
+#include "lsystem/fractal_plant.hpp"
 
 UserInfo::UserInfo() {
     this->general_info.height = 1080;
@@ -34,10 +34,10 @@ void UserInfo::read_config(std::string config_path) {
         if (data.contains(drawing_option)) {
             const auto& lsystems = toml::find(data, drawing_option);
             auto key = drawing_option;
-            std::vector<config::Drawable> drawable_configs;
+            std::vector<config::LSystem> drawable_configs;
             for (const auto& item : lsystems.as_table()) {
                 std::cout << item.first << std::endl;
-                auto drawable_config = toml::find<config::Drawable>(lsystems, item.first);
+                auto drawable_config = toml::find<config::LSystem>(lsystems, item.first);
                 drawable_configs.push_back(drawable_config);
             }
             this->drawable_config.insert(
