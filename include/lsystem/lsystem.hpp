@@ -21,7 +21,7 @@ class LSystem {
     config::LSystem config;
     std::string produce();
     std::vector<std::pair<Point<double>, Point<double>>> lines;
-    virtual void generate_lines() = 0;
+    void generate_lines();
    public:
     LSystem(config::LSystem config) {
         this->config = config;

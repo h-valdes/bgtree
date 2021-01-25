@@ -8,22 +8,5 @@ height = 1080
     [fractal-plant.fp1]
     stroke-color = "#88C0D0"
     stroke-width = 1.5
-    x-offset = -350
-    x-centered = true
-    y-centered = true
-
-    [fractal-plant.fp2]
-    stroke-color = "#D08770"
-    stroke-width = 1.5
-    x-offset = 350
-    x-centered = true
-    y-centered = true
-    mirror = true
-
-[fractal-binary-tree]
-    [fractal-binary-tree.fbtree1]
-    stroke-color = "#EBCB8B"
-    stroke-width = 1.2
-    y-offset = 75
     x-centered = true
     y-centered = true

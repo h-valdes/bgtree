@@ -5,8 +5,17 @@
 class FractalPlant : public LSystem {
    protected:
     double angle;
-    virtual void generate_lines() override;
 
    public:
-    FractalPlant(config::LSystem config);
+    FractalPlant(config::LSystem config) : LSystem(config) {
+        this->variables = {"X", "F"};
+        this->constants = {"+", "-", "[", "]"};
+        this->axiom = "X";
+        this->rules.insert({"X", "F+[[X]-X]-F[-FX]+X"});
+        this->rules.insert({"F", "FF"});
+        this->recursions = 6;
+        this->angle = M_PI / 8;
+        this->name = "Fractal Plant";
+        this->generate_lines();
+    }
 };
