@@ -4,8 +4,15 @@ background-color = "#000000"
 width = 1920
 height = 1080
 
-[fractal-plant]
-    [fractal-plant.fp1]
+# [fractal-plant]
+#     [fractal-plant.fplant1]
+#     stroke-color = "#88C0D0"
+#     stroke-width = 1.5
+#     x-centered = true
+#     y-centered = true
+
+[fractal-binary-tree]
+    [fractal-binary-tree.fbtree1]
     stroke-color = "#88C0D0"
     stroke-width = 1.5
     x-centered = true

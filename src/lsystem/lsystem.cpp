@@ -15,6 +15,7 @@ std::string LSystem::produce() {
         std::string tmp_output = "";
         for (auto cursor_char : output) {
             std::string cursor_str{cursor_char};
+            std::cout << cursor_str << std::endl;
             if (std::find(this->constants.begin(), this->constants.end(), cursor_str) != this->constants.end()) {
                 tmp_output += cursor_str;
             } else {
@@ -84,7 +85,6 @@ void LSystem::generate_lines() {
 
     Point<double> start_point(0, 0);
     Point<double> direction(0, 1);
-    double length{4.5};
     std::vector<Point<double>> positions;
     std::vector<Point<double>> directions;
     double max_x = 0;
@@ -92,14 +92,14 @@ void LSystem::generate_lines() {
     double max_y = 0;
     double min_y = 0;
 
-    double angle = M_PI / 8;
-
     // Specific for the example 2 of Wikipedia
     Point<double> last_point = start_point;
     Point<double> last_direction = direction;
 
     double width_increment = 0.3;
-    double angle_increment = M_PI/12;
+    this->angle_increment = M_PI/12;
+
+    double length_factor = 1.2;
 
     Point<double> new_point;
     for (char cursor : production) {
@@ -107,23 +107,23 @@ void LSystem::generate_lines() {
             case 'X':
                 break;
             case '-':
-                last_direction = get_rotated_direction<double>(last_direction, -1 * angle);
+                last_direction = get_rotated_direction<double>(last_direction, -1 * this->angle);
                 break;
             case '+':
-                last_direction = get_rotated_direction<double>(last_direction, angle);
+                last_direction = get_rotated_direction<double>(last_direction, this->angle);
                 break;
             case '|':
                 last_direction = get_rotated_direction<double>(last_direction, M_PI);
                 break;
             case 'F':
-                new_point.x = last_point.x + (last_direction.x * length);
-                new_point.y = last_point.y - (last_direction.y * length);
+                new_point.x = last_point.x + (last_direction.x * this->length);
+                new_point.y = last_point.y - (last_direction.y * this->length);
                 lines.push_back({last_point, new_point});
                 last_point = new_point;
                 break;
             case 'f':
-                new_point.x = last_point.x + (last_direction.x * length);
-                new_point.y = last_point.y - (last_direction.y * length);
+                new_point.x = last_point.x + (last_direction.x * this->length);
+                new_point.y = last_point.y - (last_direction.y * this->length);
                 last_point = new_point;
                 break;
             case '[':
@@ -137,16 +137,22 @@ void LSystem::generate_lines() {
                 directions.pop_back();
                 break;
             case '#':
-                length += width_increment;
+                this->length += width_increment;
                 break;
             case '!':
-                length -= width_increment;
+                this->length -= width_increment;
                 break;
             case '(':
-                angle -= angle_increment;
+                this->angle -= angle_increment;
                 break;
             case ')':
-                angle += angle_increment;
+                this->angle += angle_increment;
+                break;
+            case '>':
+                this->length *= length_factor;
+                break;
+            case '<':
+                this->length /= length_factor;
                 break;
         } 
         if (new_point.x > max_x) {

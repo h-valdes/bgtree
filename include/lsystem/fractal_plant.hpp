@@ -3,9 +3,6 @@
 #include "lsystem/lsystem.hpp"
 
 class FractalPlant : public LSystem {
-   protected:
-    double angle;
-
    public:
     FractalPlant(config::LSystem config) : LSystem(config) {
         this->variables = {"X", "F"};
@@ -15,6 +12,7 @@ class FractalPlant : public LSystem {
         this->rules.insert({"F", "FF"});
         this->recursions = 6;
         this->angle = M_PI / 8;
+        this->length = 4.5;
         this->name = "Fractal Plant";
         this->generate_lines();
     }

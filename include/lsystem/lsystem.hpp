@@ -1,11 +1,12 @@
 #pragma once
 
-#include <map>
-#include <string>
-#include <vector>
 #include <geometry.hpp>
-#include <user.hpp>
+#include <map>
 #include <memory>
+#include <string>
+#include <user.hpp>
+#include <vector>
+
 #include "config.hpp"
 
 class LSystem {
@@ -18,10 +19,15 @@ class LSystem {
     std::string name;
     int width;
     int height;
+    double angle;
+    double angle_increment;
+    double length_increment;
+    double length;
     config::LSystem config;
     std::string produce();
     std::vector<std::pair<Point<double>, Point<double>>> lines;
     void generate_lines();
+
    public:
     LSystem(config::LSystem config) {
         this->config = config;
