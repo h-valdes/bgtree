@@ -19,10 +19,8 @@ class LSystem {
     std::string name;
     int width;
     int height;
-    double angle;
     double angle_increment;
     double length_increment;
-    double length;
     config::LSystem config;
     std::string produce();
     std::vector<std::pair<Point<double>, Point<double>>> lines;
@@ -34,4 +32,7 @@ class LSystem {
     }
     void draw(std::shared_ptr<Magick::Image> image, int width, int height);
     void mirror_lines();
+    void set_fractal_binary_tree();
+    void set_triangle();
+    void set_fractal_plant();
 };

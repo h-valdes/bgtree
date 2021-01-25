@@ -4,10 +4,7 @@
 #include <string>
 #include <toml.hpp>
 #include <vector>
-
-#include "lsystem/fractal_binary_tree.hpp"
-#include "lsystem/fractal_plant.hpp"
-#include "lsystem/triangle.hpp"
+#include "lsystem/lsystem.hpp"
 
 UserInfo::UserInfo() {
     this->general_info.height = 1080;
@@ -56,20 +53,19 @@ void UserInfo::draw() {
     for (auto item : this->drawable_config) {
         auto name = item.first;
         auto configs = item.second;
-        if (configs.size() > 0 && name == "fractal-plant") {
+        if (configs.size() > 0) {
             for (auto config : configs) {
-                FractalPlant fplant = FractalPlant(config);
-                fplant.draw(this->image, width, height);
-            }
-        } else if (configs.size() > 0 && name == "fractal-binary-tree") {
-            for (auto config : configs) {
-                FractalBinaryTree fbtree = FractalBinaryTree(config);
-                fbtree.draw(this->image, width, height);
-            }
-        } else if (configs.size() > 0 && name == "triangle") {
-            for (auto config : configs) {
-                Triangle triangle = Triangle(config);
-                triangle.draw(this->image, width, height);
+                LSystem lsystem = LSystem(config);
+                if (name == "fractal-plant") {
+                    lsystem.set_fractal_plant();
+                    lsystem.draw(this->image, width, height);
+                } else if (name == "fractal-binary-tree") {
+                    lsystem.set_fractal_binary_tree();
+                    lsystem.draw(this->image, width, height);
+                } else if (name == "triangle") {
+                    lsystem.set_triangle();
+                    lsystem.draw(this->image, width, height);
+                }
             }
         }
     }

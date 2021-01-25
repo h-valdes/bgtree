@@ -4,8 +4,8 @@
 
 #include <algorithm>
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 
 std::string LSystem::produce() {
     std::string output = this->axiom;
@@ -31,28 +31,27 @@ std::string LSystem::produce() {
 }
 
 void LSystem::draw(std::shared_ptr<Magick::Image> image, int width, int height) {
-
     // Magick::Image image(Magick::Geometry(width, height), Magick::Color(background_color));
     std::vector<Magick::Drawable> draw_vector;
 
-    image->strokeColor(config.stroke_color);
-    image->strokeWidth(config.stroke_width);
+    image->strokeColor(this->config.stroke_color);
+    image->strokeWidth(this->config.stroke_width);
 
     int x_offset, y_offset;
 
-    if (config.x_centered) {
-        x_offset = (width / 2) + config.x_offset;
+    if (this->config.x_centered) {
+        x_offset = (width / 2) + this->config.x_offset;
     } else {
         x_offset = config.x_offset;
     }
 
-    if (config.y_centered) {
-        y_offset = ((height - this->height) / 2) + this->height + config.y_offset;
+    if (this->config.y_centered) {
+        y_offset = ((height - this->height) / 2) + this->height + this->config.y_offset;
     } else {
-        y_offset = config.y_offset;
+        y_offset = this->config.y_offset;
     }
 
-    if (config.mirror)
+    if (this->config.mirror)
         this->mirror_lines();
 
     for (auto line : this->lines) {
@@ -76,7 +75,7 @@ void LSystem::mirror_lines() {
         new_second.x *= -1;
         new_lines.push_back({new_first, new_second});
     }
-    this->lines = new_lines; 
+    this->lines = new_lines;
 }
 
 void LSystem::generate_lines() {
@@ -97,7 +96,7 @@ void LSystem::generate_lines() {
     Point<double> last_direction = direction;
 
     double width_increment = 0.3;
-    this->angle_increment = M_PI/12;
+    this->angle_increment = M_PI / 12;
 
     double length_factor = 1.2;
 
@@ -107,23 +106,26 @@ void LSystem::generate_lines() {
             case 'X':
                 break;
             case '-':
-                last_direction = get_rotated_direction<double>(last_direction, -1 * this->angle);
+                last_direction = get_rotated_direction<double>(
+                    last_direction, -1 * this->config.angle);
                 break;
             case '+':
-                last_direction = get_rotated_direction<double>(last_direction, this->angle);
+                last_direction = get_rotated_direction<double>(
+                    last_direction, this->config.angle);
                 break;
             case '|':
-                last_direction = get_rotated_direction<double>(last_direction, M_PI);
+                last_direction = get_rotated_direction<double>(
+                    last_direction, M_PI);
                 break;
             case 'F':
-                new_point.x = last_point.x + (last_direction.x * this->length);
-                new_point.y = last_point.y - (last_direction.y * this->length);
+                new_point.x = last_point.x + (last_direction.x * this->config.length);
+                new_point.y = last_point.y - (last_direction.y * this->config.length);
                 lines.push_back({last_point, new_point});
                 last_point = new_point;
                 break;
             case 'f':
-                new_point.x = last_point.x + (last_direction.x * this->length);
-                new_point.y = last_point.y - (last_direction.y * this->length);
+                new_point.x = last_point.x + (last_direction.x * this->config.length);
+                new_point.y = last_point.y - (last_direction.y * this->config.length);
                 last_point = new_point;
                 break;
             case '[':
@@ -137,27 +139,27 @@ void LSystem::generate_lines() {
                 directions.pop_back();
                 break;
             case '#':
-                this->length += width_increment;
+                this->config.length += this->config.length_increment;
                 break;
             case '!':
-                this->length -= width_increment;
+                this->config.length -= this->config.length_increment;
                 break;
             case '(':
-                this->angle -= angle_increment;
+                this->config.angle -= this->config.angle_increment;
                 break;
             case ')':
-                this->angle += angle_increment;
+                this->config.angle += this->config.angle_increment;
                 break;
             case '>':
-                this->length *= length_factor;
+                this->config.length *= length_factor;
                 break;
             case '<':
-                this->length /= length_factor;
+                this->config.length /= length_factor;
                 break;
-        } 
+        }
         if (new_point.x > max_x) {
             max_x = new_point.x;
-        }else if (new_point.x < min_x) {
+        } else if (new_point.x < min_x) {
             min_x = new_point.x;
         }
 
@@ -180,4 +182,33 @@ void LSystem::generate_lines() {
     std::cout << "Height: " << this->height << std::endl;
 
     this->lines = lines;
+}
+
+void LSystem::set_fractal_binary_tree() {
+    this->variables = {"X", "F"};
+    this->constants = {"[", "]", "-", "+", ">"};
+    this->axiom = "FX";
+    this->rules.insert({"X", ">[-FX]+FX"});
+    this->rules.insert({"F", ""});
+    this->name = "Fractal Binary Tree";
+    this->generate_lines();
+}
+
+void LSystem::set_fractal_plant() {
+    this->variables = {"X", "F"};
+    this->constants = {"+", "-", "[", "]"};
+    this->axiom = "X";
+    this->rules.insert({"X", "F+[[X]-X]-F[-FX]+X"});
+    this->rules.insert({"F", "FF"});
+    this->name = "Fractal Plant";
+    this->generate_lines();
+}
+
+void LSystem::set_triangle() {
+    this->variables = {"F"};
+    this->constants = {"+", "-"};
+    this->axiom = "F+F+F";
+    this->rules.insert({"F", "F-F+F"});
+    this->name = "Triangle";
+    this->generate_lines();
 }
