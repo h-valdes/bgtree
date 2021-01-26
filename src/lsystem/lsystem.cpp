@@ -186,6 +186,7 @@ void LSystem::set_fractal_binary_tree() {
     this->variables = {"X", "F"};
     this->constants = {"[", "]", "-", "+", ">"};
     this->axiom = "FX";
+    this->rules.clear();
     this->rules.insert({"X", ">[-FX]+FX"});
     this->rules.insert({"F", ""});
     this->name = "Fractal Binary Tree";
@@ -196,6 +197,7 @@ void LSystem::set_fractal_plant() {
     this->variables = {"X", "F"};
     this->constants = {"+", "-", "[", "]"};
     this->axiom = "X";
+    this->rules.clear();
     this->rules.insert({"X", "F+[[X]-X]-F[-FX]+X"});
     this->rules.insert({"F", "FF"});
     this->name = "Fractal Plant";
@@ -206,6 +208,7 @@ void LSystem::set_triangle() {
     this->variables = {"F"};
     this->constants = {"+", "-"};
     this->axiom = "F+F+F";
+    this->rules.clear();
     this->rules.insert({"F", "F-F+F"});
     this->name = "Triangle";
     this->generate_lines();
