@@ -49,5 +49,23 @@ Point<T> convert_to_point(Point<T> point) {
     return new_point;
 }
 
+template<class T>
+Point<T> get_center(std::vector<std::pair<Point<T>, Point<T>>> lines) {
+    Point<T> center;
+    int counter = 0;
+    double total_x = 0;
+    double total_y = 0;
+
+    for (auto line : lines) {
+        total_x += (line.first.x + line.second.x) / 2; 
+        total_y += (line.first.y + line.second.y) / 2;
+        counter++;
+    }
+    center.x = total_x / counter;
+    center.y = total_y / counter;
+
+    return center;
+}
+
 template class Point<double>;
 template Point<double> get_rotated_direction(Point<double> direction, double angle);
