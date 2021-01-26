@@ -57,16 +57,8 @@ void UserInfo::draw() {
             for (auto config : configs) {
                 auto lsystem_type = config.type;
                 LSystem lsystem = LSystem(config);
-                if (lsystem_type == "fractal-plant") {
-                    lsystem.set_fractal_plant();
-                    lsystem.draw(this->image, width, height);
-                } else if (lsystem_type == "fractal-binary-tree") {
-                    lsystem.set_fractal_binary_tree();
-                    lsystem.draw(this->image, width, height);
-                } else if (lsystem_type == "triangle") {
-                    lsystem.set_triangle();
-                    lsystem.draw(this->image, width, height);
-                }
+                lsystem.set_properties(lsystem_type);
+                lsystem.draw(this->image, width, height);
             }
         }
     }

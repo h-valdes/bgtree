@@ -182,34 +182,35 @@ void LSystem::generate_lines() {
     this->lines = lines;
 }
 
-void LSystem::set_fractal_binary_tree() {
-    this->variables = {"X", "F"};
-    this->constants = {"[", "]", "-", "+", ">"};
-    this->axiom = "FX";
+void LSystem::set_properties(std::string name) {
     this->rules.clear();
-    this->rules.insert({"X", ">[-FX]+FX"});
-    this->rules.insert({"F", ""});
-    this->name = "Fractal Binary Tree";
-    this->generate_lines();
-}
 
-void LSystem::set_fractal_plant() {
-    this->variables = {"X", "F"};
-    this->constants = {"+", "-", "[", "]"};
-    this->axiom = "X";
-    this->rules.clear();
-    this->rules.insert({"X", "F+[[X]-X]-F[-FX]+X"});
-    this->rules.insert({"F", "FF"});
-    this->name = "Fractal Plant";
-    this->generate_lines();
-}
+    if (name == "fractal-binary-tree") {
+        this->variables = {"X", "F"};
+        this->constants = {"[", "]", "-", "+", ">"};
+        this->axiom = "FX";
+        this->rules.clear();
+        this->rules.insert({"X", ">[-FX]+FX"});
+        this->rules.insert({"F", ""});
+        this->name = "Fractal Binary Tree";
+    } else if (name == "fractal-plant") {
+        this->variables = {"X", "F"};
+        this->constants = {"+", "-", "[", "]"};
+        this->axiom = "X";
+        this->rules.clear();
+        this->rules.insert({"X", "F+[[X]-X]-F[-FX]+X"});
+        this->rules.insert({"F", "FF"});
+        this->name = "Fractal Plant";
+    } else if (name == "triangle") {
+        this->variables = {"F"};
+        this->constants = {"+", "-"};
+        this->axiom = "F+F+F";
+        this->rules.clear();
+        this->rules.insert({"F", "F-F+F"});
+        this->name = "Triangle";
+    }
 
-void LSystem::set_triangle() {
-    this->variables = {"F"};
-    this->constants = {"+", "-"};
-    this->axiom = "F+F+F";
-    this->rules.clear();
-    this->rules.insert({"F", "F-F+F"});
-    this->name = "Triangle";
-    this->generate_lines();
+    if (this->variables.size() > 0) {
+        this->generate_lines();
+    }
 }

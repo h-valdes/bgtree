@@ -32,7 +32,5 @@ class LSystem {
     }
     void draw(std::shared_ptr<Magick::Image> image, int width, int height);
     void mirror_lines();
-    void set_fractal_binary_tree();
-    void set_triangle();
-    void set_fractal_plant();
+    void set_properties(std::string name);
 };
