@@ -4,19 +4,9 @@ background-color = "#4C566A"
 width = 1920
 height = 1080
 
-# [fractal-plant]
-#     [fractal-plant.fplant1]
-#     stroke-color = "#88C0D0"
-#     stroke-width = 1.5
-#     recursions = 6
-#     length = 4.5
-#     angle = 0.5
-#     x-centered = true
-#     y-centered = true
-
-[triangle]
-    [triangle.triangle1]
-    # stroke-color = "#D08770"
+[lsystem]
+    [lsystem.ls1]
+    type = "triangle"
     stroke-color = "#ECEFF4"
     stroke-width = 1.5
     x-centered = true
@@ -26,3 +16,13 @@ height = 1080
     angle = 2.0944
     recursions = 5
     length = 30.2
+
+    [lsystem.ls2]
+    type = "fractal-plant"
+    stroke-color = "#88C0D0"
+    stroke-width = 1.5
+    recursions = 6
+    length = 4.5
+    angle = 0.5
+    x-centered = true
+    y-centered = true

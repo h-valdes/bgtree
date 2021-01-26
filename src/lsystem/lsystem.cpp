@@ -11,11 +11,10 @@ std::string LSystem::produce() {
     std::string output = this->axiom;
     std::cout << "n = " << 0 << " : " << output << std::endl;
 
-    for (int n = 1; n < this->recursions + 1; n++) {
+    for (int n = 1; n < this->config.recursions + 1; n++) {
         std::string tmp_output = "";
         for (auto cursor_char : output) {
             std::string cursor_str{cursor_char};
-            std::cout << cursor_str << std::endl;
             if (std::find(this->constants.begin(), this->constants.end(), cursor_str) != this->constants.end()) {
                 tmp_output += cursor_str;
             } else {
@@ -95,7 +94,6 @@ void LSystem::generate_lines() {
     Point<double> last_point = start_point;
     Point<double> last_direction = direction;
 
-    double width_increment = 0.3;
     this->angle_increment = M_PI / 12;
 
     double length_factor = 1.2;

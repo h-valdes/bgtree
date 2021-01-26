@@ -7,10 +7,11 @@
 namespace config {
 struct LSystem {
     std::string stroke_color;
-    double stroke_width;
+    std::string type;
     int x_offset;
     int y_offset;
     int recursions;
+    double stroke_width;
     double angle;
     double angle_increment;
     double length;
@@ -21,6 +22,7 @@ struct LSystem {
 
     void from_toml(const toml::value& v) {
         this->stroke_color = toml::find<std::string>(v, "stroke-color");
+        this->type = toml::find<std::string>(v, "type");
         this->stroke_width = toml::find<double>(v, "stroke-width");
 
         if (v.contains("recursions")) {
