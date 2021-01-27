@@ -17,8 +17,6 @@ class LSystem {
     std::map<std::string, std::string> rules;
     int recursions;
     std::string name;
-    int width;
-    int height;
     double angle_increment;
     double length_increment;
     config::LSystem config;
@@ -30,7 +28,7 @@ class LSystem {
     LSystem(config::LSystem config) {
         this->config = config;
     }
-    void draw(std::shared_ptr<Magick::Image> image, int width, int height);
+    void draw(std::shared_ptr<Magick::Image> image, int image_width, int image_height);
     void mirror_lines();
     void set_properties(std::string name);
 };

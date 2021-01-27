@@ -49,9 +49,8 @@ Point<T> convert_to_point(Point<T> point) {
     return new_point;
 }
 
-template<class T>
-Point<T> get_center(std::vector<std::pair<Point<T>, Point<T>>> lines) {
-    Point<T> center;
+Point<double> get_centroid(const std::vector<std::pair<Point<double>, Point<double>>> lines) {
+    Point<double> center{0, 0};
     int counter = 0;
     double total_x = 0;
     double total_y = 0;
@@ -63,6 +62,46 @@ Point<T> get_center(std::vector<std::pair<Point<T>, Point<T>>> lines) {
     }
     center.x = total_x / counter;
     center.y = total_y / counter;
+
+    return center;
+}
+
+Point<double> get_centroid_bbox(const std::vector<std::pair<Point<double>, Point<double>>> lines) {
+    Point<double> center{0, 0};
+    double max_x = 0;
+    double min_x = 0;
+    double max_y = 0;
+    double min_y = 0;
+
+    for (auto line : lines) {
+        if (line.first.x > max_x) {
+            max_x = line.first.x;
+        } else if (line.first.x < min_x) {
+            min_x = line.first.x;
+        }
+
+
+        if (line.first.y > max_y) {
+            max_y = line.first.y;
+        } else if (line.first.y < min_y) {
+            min_y = line.first.y;
+        }
+
+        if (line.second.x > max_x) {
+            max_x = line.second.x;
+        } else if (line.second.x < min_x) {
+            min_x = line.second.x;
+        }
+
+        if (line.second.y > max_y) {
+            max_y = line.second.y;
+        } else if (line.second.y < min_y) {
+            min_y = line.second.y;
+        }
+    }
+
+    center.x = (max_x + min_x) / 2;
+    center.y = (max_y + min_y) / 2;
 
     return center;
 }

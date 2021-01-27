@@ -1,4 +1,5 @@
 #include "lsystem/lsystem.hpp"
+#include "geometry.hpp"
 
 #include <Magick++.h>
 
@@ -9,7 +10,7 @@
 
 std::string LSystem::produce() {
     std::string output = this->axiom;
-    std::cout << "n = " << 0 << " : " << output << std::endl;
+    // std::cout << "n = " << 0 << " : " << output << std::endl;
 
     for (int n = 1; n < this->config.recursions + 1; n++) {
         std::string tmp_output = "";
@@ -22,36 +23,39 @@ std::string LSystem::produce() {
             }
         }
 
-        std::cout << "n = " << n << " : " << tmp_output << std::endl;
+        // std::cout << "n = " << n << " : " << tmp_output << std::endl;
         output = tmp_output;
     }
 
     return output;
 }
 
-void LSystem::draw(std::shared_ptr<Magick::Image> image, int width, int height) {
+void LSystem::draw(std::shared_ptr<Magick::Image> image, int image_width, int image_height) {
     // Magick::Image image(Magick::Geometry(width, height), Magick::Color(background_color));
     std::vector<Magick::Drawable> draw_vector;
 
     image->strokeColor(this->config.stroke_color);
     image->strokeWidth(this->config.stroke_width);
 
+    if (this->config.mirror)
+        this->mirror_lines();
+
+    Point<double> center = get_centroid(this->lines);
+    std::cout << "Center: " << center.x << " , " << center.y << std::endl;
+
     int x_offset, y_offset;
 
     if (this->config.x_centered) {
-        x_offset = (width / 2) + this->config.x_offset;
+        x_offset = (image_width / 2) - center.x + this->config.x_offset;
     } else {
         x_offset = config.x_offset;
     }
 
     if (this->config.y_centered) {
-        y_offset = ((height - this->height) / 2) + this->height + this->config.y_offset;
+        y_offset = (image_height / 2) - center.y + this->config.y_offset;
     } else {
         y_offset = this->config.y_offset;
-    }
-
-    if (this->config.mirror)
-        this->mirror_lines();
+    }  
 
     for (auto line : this->lines) {
         draw_vector.push_back(Magick::DrawableLine(
@@ -85,10 +89,6 @@ void LSystem::generate_lines() {
     Point<double> direction(0, 1);
     std::vector<Point<double>> positions;
     std::vector<Point<double>> directions;
-    double max_x = 0;
-    double min_x = 0;
-    double max_y = 0;
-    double min_y = 0;
 
     // Specific for the example 2 of Wikipedia
     Point<double> last_point = start_point;
@@ -155,29 +155,7 @@ void LSystem::generate_lines() {
                 this->config.length /= length_factor;
                 break;
         }
-        if (new_point.x > max_x) {
-            max_x = new_point.x;
-        } else if (new_point.x < min_x) {
-            min_x = new_point.x;
-        }
-
-        if (new_point.y < min_y) {
-            min_y = new_point.y;
-        } else if (new_point.y > max_y) {
-            max_y = new_point.y;
-        }
     }
-
-    if (std::abs(max_x) > std::abs(min_x)) {
-        this->width = static_cast<int>(max_x / 2);
-    } else {
-        this->width = static_cast<int>(min_x / 2);
-    }
-
-    // this->width = static_cast<int>(std::abs(max_x - min_x));
-    this->height = static_cast<int>(std::abs(max_y - min_y));
-    std::cout << "Width: " << this->width << std::endl;
-    std::cout << "Height: " << this->height << std::endl;
 
     this->lines = lines;
 }

@@ -44,8 +44,10 @@ double get_angle(Point<T> v1, Point<T> v2);
 template<class T>
 Point<T> get_rotated_direction(Point<T> direction, T angle);
 
-template<class T>
-Point<double> get_center(std::vector<std::pair<Point<T>, Point<T>>> lines);
+Point<double> get_centroid(std::vector<std::pair<Point<double>, Point<double>>> lines);
+
+Point<double> get_centroid_bbox(std::vector<std::pair<Point<double>, Point<double>>> lines);
+
 
 template<class T>
 Point<T> convert_to_point(Point<T> point);
