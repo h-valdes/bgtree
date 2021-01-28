@@ -5,24 +5,46 @@ width = 1920
 height = 1080
 
 [lsystem]
-    [lsystem.ls1]
-    type = "triangle"
-    stroke-color = "#ECEFF4"
-    stroke-width = 1.5
-    x-centered = true
-    y-centered = true
-    # y-offset = -500
-    # x-offset = -225
-    angle = 2.0944
-    recursions = 5
-    length = 30.2
+    # [lsystem.ls1]
+    # type = "triangle"
+    # stroke-color = "#ECEFF4"
+    # stroke-width = 1.5
+    # x-centered = true
+    # y-centered = true
+    # # y-offset = -500
+    # # x-offset = -225
+    # angle = 2.0944
+    # recursions = 5
+    # length = 30.2
 
-    [lsystem.ls2]
-    type = "fractal-plant"
+    # [lsystem.ls2]
+    # type = "fractal-plant"
+    # stroke-color = "#88C0D0"
+    # stroke-width = 1.5
+    # recursions = 6
+    # length = 4.5
+    # angle = 0.5
+    # x-centered = true
+    # y-centered = true
+
+    # [lsystem.ls3]
+    # type = "square-sierpinski"
+    # stroke-color = "#88C0D0"
+    # stroke-width = 1.5
+    # recursions = 5
+    # length = 6.5
+    # angle = 1.5708
+    # y-offset = -25
+    # x-centered = true
+    # y-centered = true
+
+    [lsystem.ls4]
+    type = "dragon-curve"
     stroke-color = "#88C0D0"
     stroke-width = 1.5
-    recursions = 6
-    length = 4.5
-    angle = 0.5
+    recursions = 10
+    length = 20.0
+    angle = 1.5708
+    y-offset = -25
     x-centered = true
     y-centered = true

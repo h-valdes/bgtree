@@ -164,28 +164,46 @@ void LSystem::set_properties(std::string name) {
     this->rules.clear();
 
     if (name == "fractal-binary-tree") {
+        this->name = "Fractal Binary Tree";
         this->variables = {"X", "F"};
         this->constants = {"[", "]", "-", "+", ">"};
         this->axiom = "FX";
         this->rules.clear();
         this->rules.insert({"X", ">[-FX]+FX"});
-        this->rules.insert({"F", ""});
-        this->name = "Fractal Binary Tree";
+        this->rules.insert({"F", "F"});
     } else if (name == "fractal-plant") {
+        this->name = "Fractal Plant";
         this->variables = {"X", "F"};
         this->constants = {"+", "-", "[", "]"};
         this->axiom = "X";
         this->rules.clear();
         this->rules.insert({"X", "F+[[X]-X]-F[-FX]+X"});
         this->rules.insert({"F", "FF"});
-        this->name = "Fractal Plant";
     } else if (name == "triangle") {
+        this->name = "Triangle";
         this->variables = {"F"};
         this->constants = {"+", "-"};
         this->axiom = "F+F+F";
         this->rules.clear();
         this->rules.insert({"F", "F-F+F"});
-        this->name = "Triangle";
+    } else if (name == "square-sierpinski") {
+        this->name = "Square Sierpinski";
+        this->variables = {"F", "X"};
+        this->constants = {"-", "+"};
+        this->axiom = "F+XF+F+XF";
+        this->rules.clear();
+        this->rules.insert({"X", "XF-F+F-XF+F+XF-F+F-X"});
+        this->rules.insert({"F", "F"});
+        this->config.angle = M_PI / 2;
+    } else if (name == "dragon-curve") {
+        this->name = "Dragon Curve";
+        this->variables = {"F", "X", "Y"};
+        this->constants = {"+", "-"};
+        this->axiom = "FX";
+        this->rules.insert({"F", "F"});
+        this->rules.insert({"X", "X+YF+"});
+        this->rules.insert({"Y", "-FX-Y"});
+        this->config.angle = M_PI / 2;
     }
 
     if (this->variables.size() > 0) {
