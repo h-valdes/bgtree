@@ -21,7 +21,7 @@ class LSystem {
     double length_increment;
     config::LSystem config;
     std::string produce();
-    std::vector<std::pair<Point<double>, Point<double>>> lines;
+    std::vector<std::pair<Point2d, Point2d>> lines;
     void generate_lines();
 
    public:

@@ -18,36 +18,30 @@ class Point {
     }
 };
 
-template <class T>
+typedef Point<double> Point2d;
+
 class Line {
    public:
-    Point<T> start;
-    Point<T> end;
-    Line(Point<T> start, Point<T> end) {
+    Point2d start;
+    Point2d end;
+    Line(Point2d start, Point2d end) {
         this->start = start;
         this->end = end;
     }
 };
 
-template <class T>
-double get_length(Point<T> v);
+double get_length(Point2d v);
 
-template <class T>
-double dot_product(Point<T> v1, Point<T> v2);
+double dot_product(Point2d v1, Point2d v2);
 
-template<class T>
-double cross_product(Point<T> v1, Point<T> v2);
+double cross_product(Point2d v1, Point2d v2);
 
-template<class T>
-double get_angle(Point<T> v1, Point<T> v2);
+double get_angle(Point2d v1, Point2d v2);
 
-template<class T>
-Point<T> get_rotated_direction(Point<T> direction, T angle);
+Point2d get_rotated_direction(Point2d direction, double angle);
 
-Point<double> get_centroid(std::vector<std::pair<Point<double>, Point<double>>> lines);
+Point2d get_centroid(std::vector<std::pair<Point2d, Point2d>> lines);
 
-Point<double> get_centroid_bbox(std::vector<std::pair<Point<double>, Point<double>>> lines);
+Point2d get_centroid_bbox(std::vector<std::pair<Point2d, Point2d>> lines);
 
-
-template<class T>
-Point<T> convert_to_point(Point<T> point);
+Point2d convert_to_point(Point2d point);

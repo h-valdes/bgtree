@@ -40,7 +40,7 @@ void LSystem::draw(std::shared_ptr<Magick::Image> image, int image_width, int im
     if (this->config.mirror)
         this->mirror_lines();
 
-    Point<double> center = get_centroid(this->lines);
+    Point2d center = get_centroid(this->lines);
     std::cout << "Center: " << center.x << " , " << center.y << std::endl;
 
     int x_offset, y_offset;
@@ -70,7 +70,7 @@ void LSystem::draw(std::shared_ptr<Magick::Image> image, int image_width, int im
 
 void LSystem::mirror_lines() {
     std::cout << "Mirror lines" << std::endl;
-    std::vector<std::pair<Point<double>, Point<double>>> new_lines;
+    std::vector<std::pair<Point2d, Point2d>> new_lines;
     for (auto line : this->lines) {
         auto new_first = line.first;
         auto new_second = line.second;
@@ -82,37 +82,37 @@ void LSystem::mirror_lines() {
 }
 
 void LSystem::generate_lines() {
-    std::vector<std::pair<Point<double>, Point<double>>> lines;
+    std::vector<std::pair<Point2d, Point2d>> lines;
     auto production = this->produce();
 
-    Point<double> start_point(0, 0);
-    Point<double> direction(0, 1);
-    std::vector<Point<double>> positions;
-    std::vector<Point<double>> directions;
+    Point2d start_point(0, 0);
+    Point2d direction(0, 1);
+    std::vector<Point2d> positions;
+    std::vector<Point2d> directions;
 
     // Specific for the example 2 of Wikipedia
-    Point<double> last_point = start_point;
-    Point<double> last_direction = direction;
+    Point2d last_point = start_point;
+    Point2d last_direction = direction;
 
     this->angle_increment = M_PI / 12;
 
     double length_factor = 1.2;
 
-    Point<double> new_point;
+    Point2d new_point;
     for (char cursor : production) {
         switch (cursor) {
             case 'X':
                 break;
             case '-':
-                last_direction = get_rotated_direction<double>(
+                last_direction = get_rotated_direction(
                     last_direction, -1 * this->config.angle);
                 break;
             case '+':
-                last_direction = get_rotated_direction<double>(
+                last_direction = get_rotated_direction(
                     last_direction, this->config.angle);
                 break;
             case '|':
-                last_direction = get_rotated_direction<double>(
+                last_direction = get_rotated_direction(
                     last_direction, M_PI);
                 break;
             case 'F':

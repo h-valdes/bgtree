@@ -2,26 +2,22 @@
 
 #include <cmath>
 
-template<class T>
-double get_length(Point<T> v) {
+double get_length(Point2d v) {
     double length = sqrt(pow(v.x, 2) + pow(v.y, 2));
     return length;
 }
 
-template<class T>
-double dot_product(Point<T> v1, Point<T> v2) {
+double dot_product(Point2d v1, Point2d v2) {
     double product = v1.x * v2.x + v1.y * v2.y;
     return product;
 }
 
-template<class T>
-double cross_product(Point<T> v1, Point<T> v2) {
+double cross_product(Point2d v1, Point2d v2) {
     double product = (double)(1000 * v1.x * 1000 * v2.y) - (double)(1000 * v1.y * 1000 * v2.x);
     return product;
 }
 
-template<class T>
-double get_angle(Point<T> v1, Point<T> v2) {
+double get_angle(Point2d v1, Point2d v2) {
     double dist_v1, dist_v2;
     dist_v1 = get_length(v1);
     dist_v2 = get_length(v2);
@@ -33,24 +29,22 @@ double get_angle(Point<T> v1, Point<T> v2) {
     return angle;
 }
 
-template<class T>
-Point<T> get_rotated_direction(Point<T> direction, T angle) {
-    Point<T> rotated_direction;
+Point2d get_rotated_direction(Point2d direction, double angle) {
+    Point2d rotated_direction;
     rotated_direction.x = direction.x * cos(angle) - direction.y * sin(angle);
     rotated_direction.y = direction.x * sin(angle) + direction.y * cos(angle);
     return rotated_direction;
 }
 
-template<class T>
-Point<T> convert_to_point(Point<T> point) {
-    Point<T> new_point{
+Point2d convert_to_point(Point2d point) {
+    Point2d new_point{
         static_cast<int>(point.x),
         static_cast<int>(point.y)};
     return new_point;
 }
 
-Point<double> get_centroid(const std::vector<std::pair<Point<double>, Point<double>>> lines) {
-    Point<double> center{0, 0};
+Point2d get_centroid(const std::vector<std::pair<Point2d, Point2d>> lines) {
+    Point2d center{0, 0};
     int counter = 0;
     double total_x = 0;
     double total_y = 0;
@@ -66,8 +60,8 @@ Point<double> get_centroid(const std::vector<std::pair<Point<double>, Point<doub
     return center;
 }
 
-Point<double> get_centroid_bbox(const std::vector<std::pair<Point<double>, Point<double>>> lines) {
-    Point<double> center{0, 0};
+Point2d get_centroid_bbox(const std::vector<std::pair<Point2d, Point2d>> lines) {
+    Point2d center{0, 0};
     double max_x = 0;
     double min_x = 0;
     double max_y = 0;
@@ -106,5 +100,3 @@ Point<double> get_centroid_bbox(const std::vector<std::pair<Point<double>, Point
     return center;
 }
 
-template class Point<double>;
-template Point<double> get_rotated_direction(Point<double> direction, double angle);
