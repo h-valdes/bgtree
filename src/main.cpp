@@ -19,6 +19,7 @@ int main(int argc, char** argv) {
     user_info->is_preview = true;
 
     user_info->read_config(config_path);
+
     user_info->draw();
 
     return EXIT_SUCCESS;

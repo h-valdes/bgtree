@@ -63,6 +63,9 @@ void UserInfo::draw() {
         }
     }
 
+    // Temporarily export as file anyway
+    this->image->write(this->general_info.output_file);
+
     if (this->is_preview == true) {
         this->image->display();
     } else {

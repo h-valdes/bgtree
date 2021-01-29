@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <vector>
+#include <iostream>
 
 template <class T>
 class Point {
@@ -15,6 +16,13 @@ class Point {
     Point(T x, T y) {
         this->x = x;
         this->y = y;
+    }
+    friend std::ostream& operator<<(std::ostream &out, const Point &p) {
+        out << "[" << p.x <<"," << p.y << "]" << std::endl;
+        return out;
+    }
+    friend bool operator==(const Point &pl, const Point &pr) {
+        return (pl.x == pr.x) && (pl.y == pr.y);
     }
 };
 
@@ -43,5 +51,3 @@ Point2d get_rotated_direction(Point2d direction, double angle);
 Point2d get_centroid(std::vector<std::pair<Point2d, Point2d>> lines);
 
 Point2d get_centroid_bbox(std::vector<std::pair<Point2d, Point2d>> lines);
-
-Point2d convert_to_point(Point2d point);

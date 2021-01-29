@@ -36,13 +36,6 @@ Point2d get_rotated_direction(Point2d direction, double angle) {
     return rotated_direction;
 }
 
-Point2d convert_to_point(Point2d point) {
-    Point2d new_point{
-        static_cast<int>(point.x),
-        static_cast<int>(point.y)};
-    return new_point;
-}
-
 Point2d get_centroid(const std::vector<std::pair<Point2d, Point2d>> lines) {
     Point2d center{0, 0};
     int counter = 0;
@@ -73,7 +66,6 @@ Point2d get_centroid_bbox(const std::vector<std::pair<Point2d, Point2d>> lines) 
         } else if (line.first.x < min_x) {
             min_x = line.first.x;
         }
-
 
         if (line.first.y > max_y) {
             max_y = line.first.y;
