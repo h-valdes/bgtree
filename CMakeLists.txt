@@ -15,6 +15,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(EXTERNAL_LIB_HEADERS toml11)
 
 add_subdirectory(toml11)
+add_subdirectory(CLI11)
 
 include_directories( 
     ${ImageMagick_INCLUDE_DIRS}
@@ -36,7 +37,8 @@ add_executable(bgmaker ${all_SRCS})
 
 target_link_libraries(
     bgmaker 
-    ${ImageMagick_LIBRARIES} 
+    ${ImageMagick_LIBRARIES}
+    CLI11::CLI11 
     ${EXTERNAL_LIB_HEADERS}
 )
 

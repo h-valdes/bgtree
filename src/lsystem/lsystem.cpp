@@ -41,7 +41,7 @@ void LSystem::draw(std::shared_ptr<Magick::Image> image, int image_width, int im
         this->mirror_lines();
 
     Point2d center = get_centroid(this->lines);
-    std::cout << "Center: " << center.x << " , " << center.y << std::endl;
+    std::cout << "Center: " << center << std::endl;
 
     int x_offset, y_offset;
 
