@@ -5,11 +5,12 @@
 #include "config.hpp"
 #include "geometry.hpp"
 #include <memory>
+#include <vector>
 
 class Spiral {
    protected:
     config::Spiral config;
-
+    std::vector<std::pair<Point2d, Point2d>> lines;
    public:
     Spiral(config::Spiral config) {
         this->config = config;

@@ -17,8 +17,6 @@ class LSystem {
     std::map<std::string, std::string> rules;
     int recursions;
     std::string name;
-    double angle_increment;
-    double length_increment;
     config::LSystem config;
     std::string produce();
     std::vector<std::pair<Point2d, Point2d>> lines;

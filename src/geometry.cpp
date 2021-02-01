@@ -101,7 +101,7 @@ std::vector<std::pair<Point2d, Point2d>> mirror_lines(
         new_first.x *= -1;
         new_second.x *= -1;
         new_lines.push_back({new_first, new_second});
-    }
+    } 
 
     return new_lines;
 }

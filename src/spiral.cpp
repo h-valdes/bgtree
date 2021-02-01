@@ -5,7 +5,10 @@ void Spiral::draw(
     std::vector<Magick::Drawable> draw_vector;
 
     image->strokeColor(this->config.stroke_color);
-    image->strokeWidth(this->config.stroke_width);   
+    image->strokeWidth(this->config.stroke_width);
+
+    if (this->config.mirror)
+        this->lines = mirror_lines(this->lines);   
 
     for (auto drawable : draw_vector)
         image->draw(drawable);

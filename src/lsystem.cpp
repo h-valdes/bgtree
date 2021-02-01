@@ -80,9 +80,7 @@ void LSystem::generate_lines() {
     // Specific for the example 2 of Wikipedia
     Point2d last_point = start_point;
     Point2d last_direction = direction;
-
-    this->angle_increment = M_PI / 12;
-
+    
     double length_factor = 1.2;
 
     Point2d new_point;
