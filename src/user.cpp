@@ -4,7 +4,7 @@
 #include <string>
 #include <toml.hpp>
 #include <vector>
-#include "lsystem/lsystem.hpp"
+#include "lsystem.hpp"
 
 UserInfo::UserInfo() {
     this->general_info.height = 1080;

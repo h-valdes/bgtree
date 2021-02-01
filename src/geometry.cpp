@@ -92,3 +92,16 @@ Point2d get_centroid_bbox(const std::vector<std::pair<Point2d, Point2d>> lines) 
     return center;
 }
 
+std::vector<std::pair<Point2d, Point2d>> mirror_lines(
+    const std::vector<std::pair<Point2d, Point2d>> lines) {
+    std::vector<std::pair<Point2d, Point2d>> new_lines;
+    for (auto line : lines) {
+        auto new_first = line.first;
+        auto new_second = line.second;
+        new_first.x *= -1;
+        new_second.x *= -1;
+        new_lines.push_back({new_first, new_second});
+    }
+
+    return new_lines;
+}

@@ -51,3 +51,6 @@ Point2d get_rotated_direction(Point2d direction, double angle);
 Point2d get_centroid(std::vector<std::pair<Point2d, Point2d>> lines);
 
 Point2d get_centroid_bbox(std::vector<std::pair<Point2d, Point2d>> lines);
+
+std::vector<std::pair<Point2d, Point2d>> mirror_lines(
+    std::vector<std::pair<Point2d, Point2d>> lines);

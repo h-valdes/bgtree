@@ -89,6 +89,90 @@ struct LSystem {
     }
 };
 
+struct Spiral {
+    std::string stroke_color;
+    std::string type;
+    int x_offset;
+    int y_offset;
+    int iterations;
+    double stroke_width;
+    double angle;
+    double angle_increment;
+    double length;
+    double length_increment;
+    bool x_centered;
+    bool y_centered;
+    bool mirror;
+
+    void from_toml(const toml::value& v) {
+        this->stroke_color = toml::find<std::string>(v, "stroke-color");
+        this->type = toml::find<std::string>(v, "type");
+        this->stroke_width = toml::find<double>(v, "stroke-width");
+
+        if (v.contains("iterations")) {
+            this->iterations = toml::find<int>(v, "iterations");
+        } else {
+            this->iterations = 2;
+        }
+
+        if (v.contains("length")) {
+            this->length = toml::find<double>(v, "length");
+        } else {
+            this->length = 2;
+        }
+
+        if (v.contains("length-increment")) {
+            this->length_increment = toml::find<double>(v, "length-increment");
+        } else {
+            this->length_increment = this->length / 10;
+        }
+
+        if (v.contains("angle")) {
+            this->angle = toml::find<double>(v, "angle");
+        } else {
+            this->angle = M_PI / 4;
+        }
+
+        if (v.contains("angle-increment")) {
+            this->angle_increment = toml::find<double>(v, "angle-increment");
+        } else {
+            this->angle_increment = this->angle / 10;
+        }
+
+        if (v.contains("x-offset")) {
+            this->x_offset = toml::find<int>(v, "x-offset");
+        } else {
+            this->x_offset = 0;
+        }
+
+        if (v.contains("y-offset")) {
+            this->y_offset = toml::find<int>(v, "y-offset");
+        } else {
+            this->y_offset = 0;
+        }
+
+        if (v.contains("x-centered")) {
+            this->x_centered = toml::find<bool>(v, "x-centered");
+        } else {
+            this->x_centered = true;
+        }
+
+        if (v.contains("y-centered")) {
+            this->y_centered = toml::find<bool>(v, "y-centered");
+        } else {
+            this->y_centered = true;
+        }
+
+        if (v.contains("mirror")) {
+            this->mirror = toml::find<bool>(v, "mirror");
+        } else {
+            this->mirror = false;
+        }
+
+        return;
+    }
+};
+
 struct General {
     std::string output_file;
     std::string background_color;

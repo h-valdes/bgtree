@@ -1,4 +1,4 @@
-#include "lsystem/lsystem.hpp"
+#include "lsystem.hpp"
 #include "geometry.hpp"
 
 #include <Magick++.h>
@@ -38,7 +38,7 @@ void LSystem::draw(std::shared_ptr<Magick::Image> image, int image_width, int im
     image->strokeWidth(this->config.stroke_width);
 
     if (this->config.mirror)
-        this->mirror_lines();
+        this->lines = mirror_lines(this->lines);
 
     Point2d center = get_centroid(this->lines);
     std::cout << "Center: " << center << std::endl;
@@ -63,22 +63,9 @@ void LSystem::draw(std::shared_ptr<Magick::Image> image, int image_width, int im
             line.second.x + x_offset, line.second.y + y_offset));
     }
 
-    for (auto drawable : draw_vector) {
+    for (auto drawable : draw_vector)
         image->draw(drawable);
-    }
-}
-
-void LSystem::mirror_lines() {
-    std::cout << "Mirror lines" << std::endl;
-    std::vector<std::pair<Point2d, Point2d>> new_lines;
-    for (auto line : this->lines) {
-        auto new_first = line.first;
-        auto new_second = line.second;
-        new_first.x *= -1;
-        new_second.x *= -1;
-        new_lines.push_back({new_first, new_second});
-    }
-    this->lines = new_lines;
+    
 }
 
 void LSystem::generate_lines() {
